@@ -9,16 +9,31 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    clothingitemswindow.cpp \
+    closetwindow.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    loginwindow.cpp \
+    outfitswindow.cpp
 
 HEADERS += \
-    mainwindow.h
+    clothingitemswindow.h \
+    closetwindow.h \
+    loginwindow.h \
+    mainwindow.h \
+    outfitswindow.h
 
 FORMS += \
-    mainwindow.ui
+    clothingitemswindow.ui \
+    closetwindow.ui \
+    loginwindow.ui \
+    mainwindow.ui \
+    outfitswindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc

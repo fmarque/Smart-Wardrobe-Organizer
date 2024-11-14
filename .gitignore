@@ -31,5 +31,6 @@
 *.out
 *.app
 
-#other
+# other
 .vscode/c_cpp_properties.json
+*.pro.user
