@@ -52,17 +52,29 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../closetwindow.cpp \
+SOURCES       = ../clothingitemswindow.cpp \
+		../closetwindow.cpp \
 		../main.cpp \
-		../mainwindow.cpp qrc_resources.cpp \
+		../mainwindow.cpp \
+		../loginwindow.cpp \
+		../outfitswindow.cpp qrc_resources.cpp \
+		moc_clothingitemswindow.cpp \
 		moc_closetwindow.cpp \
-		moc_mainwindow.cpp
-OBJECTS       = closetwindow.o \
+		moc_loginwindow.cpp \
+		moc_mainwindow.cpp \
+		moc_outfitswindow.cpp
+OBJECTS       = clothingitemswindow.o \
+		closetwindow.o \
 		main.o \
 		mainwindow.o \
+		loginwindow.o \
+		outfitswindow.o \
 		qrc_resources.o \
+		moc_clothingitemswindow.o \
 		moc_closetwindow.o \
-		moc_mainwindow.o
+		moc_loginwindow.o \
+		moc_mainwindow.o \
+		moc_outfitswindow.o
 DIST          = ../../../../Qt/6.8.0/macos/mkspecs/features/spec_pre.prf \
 		../../../../Qt/6.8.0/macos/mkspecs/features/device_config.prf \
 		../../../../Qt/6.8.0/macos/mkspecs/common/unix.conf \
@@ -274,10 +286,16 @@ DIST          = ../../../../Qt/6.8.0/macos/mkspecs/features/spec_pre.prf \
 		../../../../Qt/6.8.0/macos/mkspecs/features/exceptions.prf \
 		../../../../Qt/6.8.0/macos/mkspecs/features/yacc.prf \
 		../../../../Qt/6.8.0/macos/mkspecs/features/lex.prf \
-		../../ProjectTemplate.pro ../closetwindow.h \
-		../mainwindow.h ../closetwindow.cpp \
+		../../ProjectTemplate.pro ../clothingitemswindow.h \
+		../closetwindow.h \
+		../loginwindow.h \
+		../mainwindow.h \
+		../outfitswindow.h ../clothingitemswindow.cpp \
+		../closetwindow.cpp \
 		../main.cpp \
-		../mainwindow.cpp
+		../mainwindow.cpp \
+		../loginwindow.cpp \
+		../outfitswindow.cpp
 QMAKE_TARGET  = ProjectTemplate
 DESTDIR       = 
 TARGET        = ProjectTemplate.app/Contents/MacOS/ProjectTemplate
@@ -298,7 +316,7 @@ include /Users/alyssaspasic/Qt/6.8.0/macos/mkspecs/features/mac/sdk.mk
 first: all
 ####### Build rules
 
-ProjectTemplate.app/Contents/MacOS/ProjectTemplate: ui_closetwindow.h ui_mainwindow.h $(OBJECTS)  
+ProjectTemplate.app/Contents/MacOS/ProjectTemplate: ui_clothingitemswindow.h ui_closetwindow.h ui_loginwindow.h ui_mainwindow.h ui_outfitswindow.h $(OBJECTS)  
 	@test -d ProjectTemplate.app/Contents/MacOS/ || mkdir -p ProjectTemplate.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET)  $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -760,9 +778,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../resources.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../closetwindow.h ../mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../closetwindow.cpp ../main.cpp ../mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../closetwindow.ui ../mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../clothingitemswindow.h ../closetwindow.h ../loginwindow.h ../mainwindow.h ../outfitswindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../clothingitemswindow.cpp ../closetwindow.cpp ../main.cpp ../mainwindow.cpp ../loginwindow.cpp ../outfitswindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../clothingitemswindow.ui ../closetwindow.ui ../loginwindow.ui ../mainwindow.ui ../outfitswindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -797,14 +815,28 @@ qrc_resources.cpp: ../resources.qrc \
 		../My-Closet-11-13-2024\ (1).png
 	/Users/alyssaspasic/Qt/6.8.0/macos/libexec/rcc -name resources --no-zstd ../resources.qrc -o qrc_resources.cpp
 
-compiler_moc_header_make_all: moc_closetwindow.cpp moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_clothingitemswindow.cpp moc_closetwindow.cpp moc_loginwindow.cpp moc_mainwindow.cpp moc_outfitswindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_closetwindow.cpp moc_mainwindow.cpp
+	-$(DEL_FILE) moc_clothingitemswindow.cpp moc_closetwindow.cpp moc_loginwindow.cpp moc_mainwindow.cpp moc_outfitswindow.cpp
+moc_clothingitemswindow.cpp: ../clothingitemswindow.h \
+		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMainWindow \
+		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../outfitswindow.h \
+		../clothingitemswindow.h \
+		../../../Qt/6.8.0/macos/libexec/moc
+	/Users/alyssaspasic/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/alyssaspasic/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/alyssaspasic/project-deliverable-2-alyssa-frances/code -I/Users/alyssaspasic/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/alyssaspasic/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/alyssaspasic/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/alyssaspasic/Qt/6.8.0/macos/lib ../clothingitemswindow.h -o moc_clothingitemswindow.cpp
+
 moc_closetwindow.cpp: ../closetwindow.h \
 		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../../../Qt/6.8.0/macos/libexec/moc
 	/Users/alyssaspasic/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/alyssaspasic/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/alyssaspasic/project-deliverable-2-alyssa-frances/code -I/Users/alyssaspasic/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/alyssaspasic/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/alyssaspasic/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/alyssaspasic/Qt/6.8.0/macos/lib ../closetwindow.h -o moc_closetwindow.cpp
+
+moc_loginwindow.cpp: ../loginwindow.h \
+		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMainWindow \
+		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../../Qt/6.8.0/macos/libexec/moc
+	/Users/alyssaspasic/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/alyssaspasic/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/alyssaspasic/project-deliverable-2-alyssa-frances/code -I/Users/alyssaspasic/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/alyssaspasic/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/alyssaspasic/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/alyssaspasic/Qt/6.8.0/macos/lib ../loginwindow.h -o moc_loginwindow.cpp
 
 moc_mainwindow.cpp: ../mainwindow.h \
 		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -812,20 +844,40 @@ moc_mainwindow.cpp: ../mainwindow.h \
 		../../../Qt/6.8.0/macos/libexec/moc
 	/Users/alyssaspasic/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/alyssaspasic/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/alyssaspasic/project-deliverable-2-alyssa-frances/code -I/Users/alyssaspasic/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/alyssaspasic/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/alyssaspasic/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/alyssaspasic/Qt/6.8.0/macos/lib ../mainwindow.h -o moc_mainwindow.cpp
 
+moc_outfitswindow.cpp: ../outfitswindow.h \
+		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMainWindow \
+		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../clothingitemswindow.h \
+		../outfitswindow.h \
+		../../../Qt/6.8.0/macos/libexec/moc
+	/Users/alyssaspasic/Qt/6.8.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/alyssaspasic/Qt/6.8.0/macos/mkspecs/macx-clang -I/Users/alyssaspasic/project-deliverable-2-alyssa-frances/code -I/Users/alyssaspasic/Qt/6.8.0/macos/lib/QtWidgets.framework/Headers -I/Users/alyssaspasic/Qt/6.8.0/macos/lib/QtGui.framework/Headers -I/Users/alyssaspasic/Qt/6.8.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/alyssaspasic/Qt/6.8.0/macos/lib ../outfitswindow.h -o moc_outfitswindow.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_closetwindow.h ui_mainwindow.h
+compiler_uic_make_all: ui_clothingitemswindow.h ui_closetwindow.h ui_loginwindow.h ui_mainwindow.h ui_outfitswindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_closetwindow.h ui_mainwindow.h
+	-$(DEL_FILE) ui_clothingitemswindow.h ui_closetwindow.h ui_loginwindow.h ui_mainwindow.h ui_outfitswindow.h
+ui_clothingitemswindow.h: ../clothingitemswindow.ui \
+		../../../Qt/6.8.0/macos/libexec/uic
+	/Users/alyssaspasic/Qt/6.8.0/macos/libexec/uic ../clothingitemswindow.ui -o ui_clothingitemswindow.h
+
 ui_closetwindow.h: ../closetwindow.ui \
 		../../../Qt/6.8.0/macos/libexec/uic
 	/Users/alyssaspasic/Qt/6.8.0/macos/libexec/uic ../closetwindow.ui -o ui_closetwindow.h
 
+ui_loginwindow.h: ../loginwindow.ui \
+		../../../Qt/6.8.0/macos/libexec/uic
+	/Users/alyssaspasic/Qt/6.8.0/macos/libexec/uic ../loginwindow.ui -o ui_loginwindow.h
+
 ui_mainwindow.h: ../mainwindow.ui \
 		../../../Qt/6.8.0/macos/libexec/uic
 	/Users/alyssaspasic/Qt/6.8.0/macos/libexec/uic ../mainwindow.ui -o ui_mainwindow.h
+
+ui_outfitswindow.h: ../outfitswindow.ui \
+		../../../Qt/6.8.0/macos/libexec/uic
+	/Users/alyssaspasic/Qt/6.8.0/macos/libexec/uic ../outfitswindow.ui -o ui_outfitswindow.h
 
 compiler_rez_source_make_all:
 compiler_rez_source_clean:
@@ -839,6 +891,13 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 
 ####### Compile
 
+clothingitemswindow.o: ../clothingitemswindow.cpp ../clothingitemswindow.h \
+		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMainWindow \
+		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../outfitswindow.h \
+		ui_clothingitemswindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clothingitemswindow.o ../clothingitemswindow.cpp
+
 closetwindow.o: ../closetwindow.cpp ../closetwindow.h \
 		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
@@ -848,6 +907,9 @@ closetwindow.o: ../closetwindow.cpp ../closetwindow.h \
 main.o: ../main.cpp ../mainwindow.h \
 		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../loginwindow.h \
+		../clothingitemswindow.h \
+		../outfitswindow.h \
 		../closetwindow.h \
 		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QApplication \
 		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qapplication.h
@@ -859,14 +921,36 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../mainwindow.cpp
 
+loginwindow.o: ../loginwindow.cpp ../loginwindow.h \
+		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMainWindow \
+		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		ui_loginwindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o loginwindow.o ../loginwindow.cpp
+
+outfitswindow.o: ../outfitswindow.cpp ../outfitswindow.h \
+		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/QMainWindow \
+		../../../Qt/6.8.0/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../clothingitemswindow.h \
+		ui_outfitswindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o outfitswindow.o ../outfitswindow.cpp
+
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
+
+moc_clothingitemswindow.o: moc_clothingitemswindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_clothingitemswindow.o moc_clothingitemswindow.cpp
 
 moc_closetwindow.o: moc_closetwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_closetwindow.o moc_closetwindow.cpp
 
+moc_loginwindow.o: moc_loginwindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_loginwindow.o moc_loginwindow.cpp
+
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+
+moc_outfitswindow.o: moc_outfitswindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_outfitswindow.o moc_outfitswindow.cpp
 
 ####### Install
 

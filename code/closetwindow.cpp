@@ -13,8 +13,5 @@ ClosetWindow::~ClosetWindow()
     delete ui;
 }
 
-void ClosetWindow::on_pushButton_clicked()
-{
 
-}
 
