@@ -11,8 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QCommandLinkButton>
-#include <QtWidgets/QFrame>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -27,12 +26,14 @@ class Ui_LoginWindow
 {
 public:
     QWidget *centralwidget;
-    QPushButton *pushButton_2;
-    QTextEdit *textEdit;
-    QTextEdit *textEdit_2;
-    QCommandLinkButton *commandLinkButton;
-    QFrame *verticalFrame;
-    QVBoxLayout *verticalLayout_2;
+    QWidget *verticalLayoutWidget;
+    QVBoxLayout *enterInfoLayout;
+    QTextEdit *enterUser_textEdit;
+    QTextEdit *enterPw_textEdit;
+    QPushButton *signup_button;
+    QPushButton *login_button;
+    QLabel *dividerLabel;
+    QLabel *pageLabel;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -40,35 +41,44 @@ public:
     {
         if (LoginWindow->objectName().isEmpty())
             LoginWindow->setObjectName("LoginWindow");
-        LoginWindow->resize(800, 600);
+        LoginWindow->resize(1024, 768);
         centralwidget = new QWidget(LoginWindow);
         centralwidget->setObjectName("centralwidget");
-        pushButton_2 = new QPushButton(centralwidget);
-        pushButton_2->setObjectName("pushButton_2");
-        pushButton_2->setGeometry(QRect(290, 400, 191, 24));
-        textEdit = new QTextEdit(centralwidget);
-        textEdit->setObjectName("textEdit");
-        textEdit->setGeometry(QRect(290, 240, 191, 31));
-        textEdit_2 = new QTextEdit(centralwidget);
-        textEdit_2->setObjectName("textEdit_2");
-        textEdit_2->setGeometry(QRect(290, 280, 191, 31));
-        commandLinkButton = new QCommandLinkButton(centralwidget);
-        commandLinkButton->setObjectName("commandLinkButton");
-        commandLinkButton->setGeometry(QRect(370, 320, 41, 41));
-        verticalFrame = new QFrame(centralwidget);
-        verticalFrame->setObjectName("verticalFrame");
-        verticalFrame->setGeometry(QRect(0, 90, 801, 381));
-        verticalLayout_2 = new QVBoxLayout(verticalFrame);
-        verticalLayout_2->setObjectName("verticalLayout_2");
+        verticalLayoutWidget = new QWidget(centralwidget);
+        verticalLayoutWidget->setObjectName("verticalLayoutWidget");
+        verticalLayoutWidget->setGeometry(QRect(270, 320, 481, 151));
+        enterInfoLayout = new QVBoxLayout(verticalLayoutWidget);
+        enterInfoLayout->setObjectName("enterInfoLayout");
+        enterInfoLayout->setContentsMargins(0, 0, 0, 0);
+        enterUser_textEdit = new QTextEdit(verticalLayoutWidget);
+        enterUser_textEdit->setObjectName("enterUser_textEdit");
+
+        enterInfoLayout->addWidget(enterUser_textEdit);
+
+        enterPw_textEdit = new QTextEdit(verticalLayoutWidget);
+        enterPw_textEdit->setObjectName("enterPw_textEdit");
+
+        enterInfoLayout->addWidget(enterPw_textEdit);
+
+        signup_button = new QPushButton(centralwidget);
+        signup_button->setObjectName("signup_button");
+        signup_button->setGeometry(QRect(410, 560, 201, 31));
+        login_button = new QPushButton(centralwidget);
+        login_button->setObjectName("login_button");
+        login_button->setGeometry(QRect(430, 490, 161, 31));
+        dividerLabel = new QLabel(centralwidget);
+        dividerLabel->setObjectName("dividerLabel");
+        dividerLabel->setGeometry(QRect(270, 530, 511, 16));
+        pageLabel = new QLabel(centralwidget);
+        pageLabel->setObjectName("pageLabel");
+        pageLabel->setGeometry(QRect(280, 220, 491, 61));
+        QFont font;
+        font.setPointSize(40);
+        pageLabel->setFont(font);
         LoginWindow->setCentralWidget(centralwidget);
-        verticalFrame->raise();
-        commandLinkButton->raise();
-        pushButton_2->raise();
-        textEdit->raise();
-        textEdit_2->raise();
         menubar = new QMenuBar(LoginWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 22));
+        menubar->setGeometry(QRect(0, 0, 1024, 21));
         LoginWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(LoginWindow);
         statusbar->setObjectName("statusbar");
@@ -82,24 +92,26 @@ public:
     void retranslateUi(QMainWindow *LoginWindow)
     {
         LoginWindow->setWindowTitle(QCoreApplication::translate("LoginWindow", "MainWindow", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("LoginWindow", "Dont' have an account? Sign up", nullptr));
-        textEdit->setHtml(QCoreApplication::translate("LoginWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        enterUser_textEdit->setHtml(QCoreApplication::translate("LoginWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Enter username</p></body></html>", nullptr));
-        textEdit_2->setHtml(QCoreApplication::translate("LoginWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">Enter username</span></p></body></html>", nullptr));
+        enterPw_textEdit->setHtml(QCoreApplication::translate("LoginWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Enter password</p></body></html>", nullptr));
-        commandLinkButton->setText(QString());
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">Enter password</span></p></body></html>", nullptr));
+        signup_button->setText(QCoreApplication::translate("LoginWindow", "Don't have an account? Sign up", nullptr));
+        login_button->setText(QCoreApplication::translate("LoginWindow", "Login", nullptr));
+        dividerLabel->setText(QCoreApplication::translate("LoginWindow", "---------------------------------------------- or ----------------------------------------------", nullptr));
+        pageLabel->setText(QCoreApplication::translate("LoginWindow", "{Name of App here}", nullptr));
     } // retranslateUi
 
 };
