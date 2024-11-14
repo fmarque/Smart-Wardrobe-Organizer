@@ -1,10 +1,25 @@
 {
     "configurations": [
         {
+            "name": "Windows",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/code",
+                "C:/Qt/6.8.0/mingw_64/include",
+                "C:/Qt/6.8.0/mingw_64/include/QtCore",
+                "C:/Qt/6.8.0/mingw_64/include/QtGui",
+                "C:/Qt/6.8.0/mingw_64/include/QtWidgets"
+            ],
+            "cStandard": "${default}",
+            "cppStandard": "${default}",
+            "intelliSenseMode": "windows-gcc-x86",
+            "compilerPath": null
+        },
+        {
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/Users/alyssaspasic/Qt/6.8.0/macos/include/*"
+                "/Users/alyssaspasic/Qt/6.8.0/macos/include"
             ],
             "defines": [],
             "macFrameworkPath": [
