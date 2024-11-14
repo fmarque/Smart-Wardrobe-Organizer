@@ -19,6 +19,10 @@ public:
 private slots:
     void on_viewClothingItems_button_clicked();
 
+    void on_viewCloset_button_clicked();
+
+    void on_backToMainMenu_button_clicked();
+
 private:
     Ui::OutfitsWindow *ui;
 };

@@ -12,6 +12,7 @@ SOURCES += \
     clothingitemswindow.cpp \
     closetwindow.cpp \
     main.cpp \
+    mainmenuwindow.cpp \
     mainwindow.cpp \
     loginwindow.cpp \
     outfitswindow.cpp
@@ -20,6 +21,7 @@ HEADERS += \
     clothingitemswindow.h \
     closetwindow.h \
     loginwindow.h \
+    mainmenuwindow.h \
     mainwindow.h \
     outfitswindow.h
 
@@ -27,6 +29,7 @@ FORMS += \
     clothingitemswindow.ui \
     closetwindow.ui \
     loginwindow.ui \
+    mainmenuwindow.ui \
     mainwindow.ui \
     outfitswindow.ui
 
