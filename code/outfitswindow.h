@@ -2,6 +2,7 @@
 #define OUTFITSWINDOW_H
 
 #include <QMainWindow>
+#include "clothingitemswindow.h"
 
 namespace Ui {
 class OutfitsWindow;
@@ -14,6 +15,9 @@ class OutfitsWindow : public QMainWindow
 public:
     explicit OutfitsWindow(QWidget *parent = nullptr);
     ~OutfitsWindow();
+
+private slots:
+    void on_viewClothingItems_button_clicked();
 
 private:
     Ui::OutfitsWindow *ui;

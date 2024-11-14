@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "loginwindow.h"
-
+#include "clothingitemswindow.h" // testing
+#include "outfitswindow.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
@@ -10,5 +11,7 @@ int main(int argc, char *argv[])
     LoginWindow login;
     login.show();
     //w.show();
+    //ClothingItemsWindow items;
+    //items.show();
     return a.exec();
 }

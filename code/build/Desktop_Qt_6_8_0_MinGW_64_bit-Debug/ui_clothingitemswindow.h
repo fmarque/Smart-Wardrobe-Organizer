@@ -205,7 +205,7 @@ public:
         pushButton->setText(QCoreApplication::translate("ClothingItemsWindow", "SHOES", nullptr));
         pageLabel->setText(QCoreApplication::translate("ClothingItemsWindow", "All Items", nullptr));
         viewCloset_button->setText(QCoreApplication::translate("ClothingItemsWindow", "View Closet", nullptr));
-        viewClothingItems_button->setText(QCoreApplication::translate("ClothingItemsWindow", "View Clothing Items", nullptr));
+        viewClothingItems_button->setText(QCoreApplication::translate("ClothingItemsWindow", "View Saved Outfits", nullptr));
         backToMainMeny_button->setText(QCoreApplication::translate("ClothingItemsWindow", "Back to Main Menu", nullptr));
     } // retranslateUi
 

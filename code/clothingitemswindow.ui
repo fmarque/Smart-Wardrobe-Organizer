@@ -319,7 +319,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>View Clothing Items</string>
+     <string>View Saved Outfits</string>
     </property>
    </widget>
    <widget class="QPushButton" name="backToMainMeny_button">

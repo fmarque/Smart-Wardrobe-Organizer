@@ -45,7 +45,7 @@ public:
     {
         if (OutfitsWindow->objectName().isEmpty())
             OutfitsWindow->setObjectName("OutfitsWindow");
-        OutfitsWindow->resize(1024, 786);
+        OutfitsWindow->resize(1024, 768);
         centralwidget = new QWidget(OutfitsWindow);
         centralwidget->setObjectName("centralwidget");
         pageLabel = new QLabel(centralwidget);
