@@ -34,3 +34,21 @@
 # other
 .vscode/c_cpp_properties.json
 *.pro.user
+
+
+# Ignore build directories and generated files
+/code/build/
+*.Makefile
+*.Debug
+*.Release
+
+# Ignore Qt-generated MOC and UI files
+moc_*.cpp
+*.moc
+qrc_*.cpp
+object_script*
+ui_*.h
+
+# Ignore general IDE/project files
+.vscode/
+*.DS_Store
