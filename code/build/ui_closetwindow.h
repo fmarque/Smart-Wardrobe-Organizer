@@ -208,7 +208,7 @@ public:
         label_5->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 29, 0);"));
         verticalLayoutWidget_3 = new QWidget(centralwidget);
         verticalLayoutWidget_3->setObjectName("verticalLayoutWidget_3");
-        verticalLayoutWidget_3->setGeometry(QRect(0, -10, 1031, 112));
+        verticalLayoutWidget_3->setGeometry(QRect(0, -10, 1031, 136));
         verticalLayout_4 = new QVBoxLayout(verticalLayoutWidget_3);
         verticalLayout_4->setObjectName("verticalLayout_4");
         verticalLayout_4->setContentsMargins(0, 0, 0, 0);
