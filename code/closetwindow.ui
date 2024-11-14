@@ -262,7 +262,7 @@
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="uploadButton">
        <property name="text">
         <string>Upload Clothing Item</string>
        </property>

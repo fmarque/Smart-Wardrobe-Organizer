@@ -47,7 +47,7 @@ public:
     QPushButton *loadButton;
     QWidget *horizontalLayoutWidget_2;
     QHBoxLayout *horizontalLayout_2;
-    QPushButton *pushButton;
+    QPushButton *uploadButton;
     QPushButton *pushButton_2;
     QPushButton *pushButton_3;
     QLabel *label_4;
@@ -166,10 +166,10 @@ public:
         horizontalLayout_2 = new QHBoxLayout(horizontalLayoutWidget_2);
         horizontalLayout_2->setObjectName("horizontalLayout_2");
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        pushButton = new QPushButton(horizontalLayoutWidget_2);
-        pushButton->setObjectName("pushButton");
+        uploadButton = new QPushButton(horizontalLayoutWidget_2);
+        uploadButton->setObjectName("uploadButton");
 
-        horizontalLayout_2->addWidget(pushButton);
+        horizontalLayout_2->addWidget(uploadButton);
 
         pushButton_2 = new QPushButton(horizontalLayoutWidget_2);
         pushButton_2->setObjectName("pushButton_2");
@@ -250,7 +250,7 @@ public:
         Arrow8->setText(QCoreApplication::translate("ClosetWindow", ">", nullptr));
         saveButton->setText(QCoreApplication::translate("ClosetWindow", "Save Outfit", nullptr));
         loadButton->setText(QCoreApplication::translate("ClosetWindow", "Load Outfit", nullptr));
-        pushButton->setText(QCoreApplication::translate("ClosetWindow", "Upload Clothing Item", nullptr));
+        uploadButton->setText(QCoreApplication::translate("ClosetWindow", "Upload Clothing Item", nullptr));
         pushButton_2->setText(QCoreApplication::translate("ClosetWindow", "View Saved Outfits", nullptr));
         pushButton_3->setText(QCoreApplication::translate("ClosetWindow", "View Clothing Iterms", nullptr));
         label_4->setText(QCoreApplication::translate("ClosetWindow", "Shoes", nullptr));
