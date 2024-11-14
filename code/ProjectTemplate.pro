@@ -15,7 +15,8 @@ SOURCES += \
     mainmenuwindow.cpp \
     mainwindow.cpp \
     loginwindow.cpp \
-    outfitswindow.cpp
+    outfitswindow.cpp \
+    popup1.cpp
 
 HEADERS += \
     clothingitemswindow.h \
@@ -23,7 +24,8 @@ HEADERS += \
     loginwindow.h \
     mainmenuwindow.h \
     mainwindow.h \
-    outfitswindow.h
+    outfitswindow.h \
+    popup1.h
 
 FORMS += \
     clothingitemswindow.ui \
@@ -31,7 +33,8 @@ FORMS += \
     loginwindow.ui \
     mainmenuwindow.ui \
     mainwindow.ui \
-    outfitswindow.ui
+    outfitswindow.ui \
+    popup1.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

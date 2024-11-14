@@ -17,5 +17,7 @@ int main(int argc, char *argv[])
     //w.show();
     //ClothingItemsWindow items;
     //items.show();
+    ClosetWindow closet;
+    closet.show();
     return a.exec();
 }
