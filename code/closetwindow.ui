@@ -27,7 +27,7 @@
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
-     <item alignment="">
+     <item>
       <widget class="QPushButton" name="Arrow1">
        <property name="minimumSize">
         <size>
@@ -46,7 +46,7 @@
        </property>
       </widget>
      </item>
-     <item alignment="">
+     <item>
       <widget class="QPushButton" name="Arrow2">
        <property name="minimumSize">
         <size>
@@ -81,7 +81,7 @@
        </property>
       </spacer>
      </item>
-     <item alignment="">
+     <item>
       <widget class="QPushButton" name="Arrow3">
        <property name="minimumSize">
         <size>
@@ -100,7 +100,7 @@
        </property>
       </widget>
      </item>
-     <item alignment="">
+     <item>
       <widget class="QPushButton" name="Arrow4">
        <property name="minimumSize">
         <size>
@@ -131,7 +131,7 @@
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item alignment="">
+     <item>
       <widget class="QPushButton" name="Arrow5">
        <property name="minimumSize">
         <size>
@@ -150,7 +150,7 @@
        </property>
       </widget>
      </item>
-     <item alignment="">
+     <item>
       <widget class="QPushButton" name="Arrow6">
        <property name="minimumSize">
         <size>
@@ -185,7 +185,7 @@
        </property>
       </spacer>
      </item>
-     <item alignment="">
+     <item>
       <widget class="QPushButton" name="Arrow7">
        <property name="minimumSize">
         <size>
@@ -204,7 +204,7 @@
        </property>
       </widget>
      </item>
-     <item alignment="">
+     <item>
       <widget class="QPushButton" name="Arrow8">
        <property name="minimumSize">
         <size>
@@ -405,7 +405,7 @@
       <x>0</x>
       <y>-10</y>
       <width>1031</width>
-      <height>112</height>
+      <height>136</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_4">
