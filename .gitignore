@@ -34,6 +34,7 @@
 # other
 .vscode/c_cpp_properties.json
 *.pro.user
+*.pro.user*
 
 
 # Ignore build directories and generated files
