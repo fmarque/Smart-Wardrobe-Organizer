@@ -1,3 +1,4 @@
+#include <string>
 class Outfit {
 public:
     std::string name;
@@ -13,5 +14,9 @@ public:
     void setShoe(std::string shoe) { shoeName = shoe; }
     void setCoat(std::string coat) { coatName = coat; }
 
-    std::string getName() { return name; }
+    // Getter for outfit name
+    std::string getName();
+
+    // Setter for outfit name
+    void setName(std::string newName);
 };
