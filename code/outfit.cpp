@@ -1,4 +1,5 @@
 #include <string>
+
 class Outfit {
 public:
     std::string name;
@@ -7,12 +8,41 @@ public:
     std::string shoeName;
     std::string coatName;
 
-    Outfit(std::string name) : name(name) {}
+    Outfit::Outfit(const std::string& name) : name(name) {}
 
-    void setTop(std::string top) { topName = top; }
-    void setBottom(std::string bottom) { bottomName = bottom; }
-    void setShoe(std::string shoe) { shoeName = shoe; }
-    void setCoat(std::string coat) { coatName = coat; }
+    // Getters
+    std::string Outfit::getTop() const { 
+        return topName; 
+    }
+
+    std::string Outfit::getBottom() const {
+        return bottomName; 
+    }
+
+    std::string Outfit::getShoe() const {
+        return shoeName; 
+    }
+
+    std::string Outfit::getCoat() const {
+        return coatName;
+    }
+
+    // Setters
+    void Outfit::setTop(const std::string& top) {
+        topName = top;
+    }
+
+    void Outfit::setBottom(const std::string& bottom) {
+        bottomName = bottom;
+    }
+
+    void Outfit::setShoe(const std::string& shoe) {
+        shoeName = shoe;
+    }
+
+    void Outfit::setCoat(const std::string& coat) {
+        coatName = coat;
+    }
 
     // Getter for outfit name
     std::string Outfit::getName() { 
@@ -20,7 +50,8 @@ public:
     }
 
     // Setter for outfit name
-    void Outfit::setName(std::string newName) {
-    name = newName;
+    void Outfit::setName(const std::string& newName) {
+        name = newName;
     }
+    
 };
