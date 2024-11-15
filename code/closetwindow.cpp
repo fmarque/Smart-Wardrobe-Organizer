@@ -41,7 +41,7 @@ ClosetWindow::~ClosetWindow()
 void ClosetWindow::openFileDialog(const QString &buttonType)
 {
     // Open the file dialog and get the selected file path
-    QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("All Files (*.*)"));
+    QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Images (*.png *.jpg *.jpeg)"));
 
     // Check if a file was selected
     if (!filePath.isEmpty()) {
