@@ -15,9 +15,12 @@ public:
     void setCoat(std::string coat) { coatName = coat; }
 
     // Getter for outfit name
-    std::string getName();
+    std::string Outfit::getName() { 
+        return name; 
+    }
 
     // Setter for outfit name
     void Outfit::setName(std::string newName) {
     name = newName;
-}
+    }
+};
