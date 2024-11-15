@@ -21,6 +21,7 @@ SOURCES += \
 HEADERS += \
     clothingitemswindow.h \
     closetwindow.h \
+    global.h \
     loginwindow.h \
     mainmenuwindow.h \
     mainwindow.h \

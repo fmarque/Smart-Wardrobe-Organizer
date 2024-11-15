@@ -4,12 +4,16 @@
 #include "outfitswindow.h"
 #include "clothingitemswindow.h"
 #include "loginwindow.h"
+#include "global.h"
+
 
 MainMenu::MainMenu(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainMenu)
+
 {
     ui->setupUi(this);
+    ui->closetLabel->setText("Welcome to your virtual closet, " + userInput + "!");
 }
 
 MainMenu::~MainMenu()
