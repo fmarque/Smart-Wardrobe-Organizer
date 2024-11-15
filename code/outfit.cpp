@@ -18,5 +18,6 @@ public:
     std::string getName();
 
     // Setter for outfit name
-    void setName(std::string newName);
-};
+    void Outfit::setName(std::string newName) {
+    name = newName;
+}
