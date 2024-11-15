@@ -1,3 +1,4 @@
+#include "clothingitem.h"
 class ClosetManager {
 private:
     std::vector<Top> tops;
