@@ -77,7 +77,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Log out</string>
+        <string>Change Username</string>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -86,18 +86,18 @@
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="closetLabel">
     <property name="geometry">
      <rect>
-      <x>270</x>
+      <x>180</x>
       <y>170</y>
-      <width>481</width>
+      <width>621</width>
       <height>101</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>45</pointsize>
+      <pointsize>25</pointsize>
      </font>
     </property>
     <property name="text">

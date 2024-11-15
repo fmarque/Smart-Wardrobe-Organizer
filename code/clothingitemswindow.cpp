@@ -3,6 +3,8 @@
 #include "outfitswindow.h"  // Include here to define OutfitsWindow
 #include "closetwindow.h"
 #include "mainmenuwindow.h"
+#include "loginWindow.h"
+#include "global.h"
 
 
 ClothingItemsWindow::ClothingItemsWindow(QWidget *parent)

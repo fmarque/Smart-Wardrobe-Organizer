@@ -16,7 +16,7 @@ public:
     ~LoginWindow();
 
 private slots:
-    void on_textEdit_undoAvailable(bool b);
+    void onSaveButtonClicked();
 
 private:
     Ui::LoginWindow *ui;

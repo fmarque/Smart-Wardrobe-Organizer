@@ -10,14 +10,14 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     //MainWindow w;
-    MainMenu menu;
+    //MainMenu menu;
     LoginWindow login;
-    //login.show();
-    menu.show();
+    login.show();
+    //menu.show();
     //w.show();
     //ClothingItemsWindow items;
     //items.show();
-    ClosetWindow closet;
-    closet.show();
+    //ClosetWindow closet;
+    //closet.show();
     return a.exec();
 }
