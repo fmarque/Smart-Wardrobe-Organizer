@@ -409,7 +409,7 @@
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_4">
-     <item>
+     <item alignment="">
       <widget class="QLabel" name="label">
        <property name="enabled">
         <bool>true</bool>
@@ -449,7 +449,7 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

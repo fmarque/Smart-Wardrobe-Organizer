@@ -4,6 +4,7 @@
 #include <QFileDialog> // Include the QFileDialog header for file selection
 #include "clothingitemswindow.h"
 #include "outfitswindow.h"
+#include "closetmanager.h"
 
 ClosetWindow::ClosetWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -45,15 +46,22 @@ void ClosetWindow::openFileDialog(const QString &buttonType)
 
     // Check if a file was selected
     if (!filePath.isEmpty()) {
+        // Convert the QString file path to std::string
+        std::string fileStr = filePath.toStdString();
+
         // Handle the file based on which button was clicked
         if (buttonType == "coat") {
             qDebug() << "Coat file selected: " << filePath;
+            ClosetManager::getInstance()->uploadTest(fileStr);  // Directly call uploadTest with file path
         } else if (buttonType == "top") {
             qDebug() << "Top file selected: " << filePath;
+            ClosetManager::getInstance()->uploadTest(fileStr);
         } else if (buttonType == "bottom") {
             qDebug() << "Bottom file selected: " << filePath;
+            ClosetManager::getInstance()->uploadTest(fileStr);
         } else if (buttonType == "shoes") {
             qDebug() << "Shoes file selected: " << filePath;
+            ClosetManager::getInstance()->uploadTest(fileStr);
         }
     }
 }

@@ -16,7 +16,8 @@ SOURCES += \
     mainwindow.cpp \
     loginwindow.cpp \
     outfitswindow.cpp \
-    popup1.cpp
+    popup1.cpp \
+    closetmanager.cpp
 
 HEADERS += \
     clothingitemswindow.h \
@@ -26,7 +27,8 @@ HEADERS += \
     mainmenuwindow.h \
     mainwindow.h \
     outfitswindow.h \
-    popup1.h
+    popup1.h \
+    closetmanager.h
 
 FORMS += \
     clothingitemswindow.ui \
