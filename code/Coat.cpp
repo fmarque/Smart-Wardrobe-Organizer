@@ -1,27 +1,17 @@
-#include "clothingItem.h"
+#include "coat.h"
 #include <iostream>
 
+// Constructor
+Coat::Coat(const std::string &image, const std::string &clothingType, const std::string &colour)
+    : ClothingItem(image, clothingType), colour(colour) {}
 
-class Coat : public ClothingItem {
-private:
-    std::string colour; // Attribute specific to Top
+// Getter for colour
+std::string Coat::getColour() const {
+    return colour;
+}
 
-public:
-    // Constructor
-    Coat(const std::string &image, const std::string &clothingType, const std::string &colour)
-        : ClothingItem(image, clothingType), colour(colour) {}
-
-    // Destructor
-    ~Coat() {}
-
-    // Getter for colour
-    std::string getColour() const {
-        return colour;
-    }
-
-    // Override display method
-    void display() const {
-        // in future, will check with json
-        std::cout << "Coat should match : " << getClothingType() << ", Colour: " << colour << "\n";
-    }
-};
+// Override display method
+void Coat::display() const {
+    // In future, will check with JSON
+    std::cout << "Coat should match: " << getClothingType() << ", Colour: " << colour << "\n";
+}

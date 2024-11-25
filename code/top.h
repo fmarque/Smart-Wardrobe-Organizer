@@ -9,10 +9,10 @@ private:
     std::string colour;
 
 public:
+    // Constructor
     Top(const std::string &image, const std::string &clothingType, const std::string &colour);
-    ~Top();
     std::string getColour() const;
-    void display() const;
+    void display() const;  // override
 };
 
 #endif // TOP_H
