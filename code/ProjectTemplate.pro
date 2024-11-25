@@ -14,11 +14,15 @@ SOURCES += \
     croppingwindow.cpp \
     main.cpp \
     mainmenuwindow.cpp \
-    #mainwindow.cpp \
     loginwindow.cpp \
     outfitswindow.cpp \
     popup1.cpp \
-    closetmanager.cpp
+    closetmanager.cpp \
+    clothingitem.cpp \
+    Top.cpp \
+    Bottom.cpp \
+    Shoes.cpp \
+    Coat.cpp
 
 HEADERS += \
     clothingitemswindow.h \
@@ -27,10 +31,14 @@ HEADERS += \
     global.h \
     loginwindow.h \
     mainmenuwindow.h \
-    #mainwindow.h \
     outfitswindow.h \
     popup1.h \
-    closetmanager.h
+    closetmanager.h \
+    clothingitem.h \
+    Top.h \
+    Bottom.h \
+    Shoes.h \
+    Coat.h
 
 FORMS += \
     clothingitemswindow.ui \
@@ -38,7 +46,6 @@ FORMS += \
     croppingwindow.ui \
     loginwindow.ui \
     mainmenuwindow.ui \
-    #mainwindow.ui \
     outfitswindow.ui \
     popup1.ui
 
