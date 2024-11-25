@@ -10,9 +10,7 @@
 #include <QDebug>
 #include <QLayout>
 
-// CroppingWindow::CroppingWindow(const QString &filePath, const QString &type, QWidget *parent)
-//     : QMainWindow(parent), ui(new Ui::CroppingWindow), filePath(filePath), type(type), drawing(false) {
-//     ui->setupUi(this);
+
 CroppingWindow::CroppingWindow(ClosetManager* manager, const QString &filePath, const QString &type, QWidget *parent)
     : QMainWindow(parent), ui(new Ui::CroppingWindow), closetManager(manager), filePath(filePath), type(type), drawing(false) {
     ui->setupUi(this);
@@ -22,19 +20,15 @@ CroppingWindow::CroppingWindow(ClosetManager* manager, const QString &filePath, 
         qDebug() << "photoLayout is not defined in the .ui file!";
         return;
     }
+
     // Initialize the scene and view
     scene = new QGraphicsScene(this);
-
     view = new QGraphicsView(scene, this);
-    //view->setInteractive(false); // Disable interaction to prevent interference    NEWLY ADDED
     view->setRenderHint(QPainter::Antialiasing);
     view->setDragMode(QGraphicsView::NoDrag);
-
     view->setObjectName("graphicsView");
-
     view->installEventFilter(this);
     view->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
 
 
     // Load the image into the pixmap
@@ -59,7 +53,7 @@ CroppingWindow::CroppingWindow(ClosetManager* manager, const QString &filePath, 
     connect(ui->saveCropButton, &QPushButton::clicked, this, &CroppingWindow::saveCrop);
     connect(ui->resetLassoButton, &QPushButton::clicked, this, &CroppingWindow::resetLasso);
 
-    // pure debugging
+    // Make sure pixmap works
     if (!originalPixmap.isNull()) {
         qDebug() << "Loaded original pixmap with size:" << originalPixmap.size();
     } else {
@@ -72,14 +66,14 @@ CroppingWindow::CroppingWindow(ClosetManager* manager, const QString &filePath, 
     resize(800, 600);
 }
 
-
-
+// Destroyers
 CroppingWindow::~CroppingWindow() {
     delete ui;
     delete scene;
     delete view;
 }
 
+// Start up the Lasso tool upon mouse click
 void CroppingWindow::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
         drawing = true;
@@ -93,6 +87,7 @@ void CroppingWindow::mousePressEvent(QMouseEvent *event) {
     }
 }
 
+// Set necessary Lasso paths upon mouse dragging
 void CroppingWindow::mouseMoveEvent(QMouseEvent *event) {
     if (drawing) {
         QPointF scenePos = view->mapToScene(event->pos());
@@ -102,84 +97,22 @@ void CroppingWindow::mouseMoveEvent(QMouseEvent *event) {
     }
 }
 
+// Allow user to stop drawing with Lasso if they let go of mouse button
 void CroppingWindow::mouseReleaseEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
         drawing = false;
     }
 }
 
+// Reset the path made by the Lasso upon user click
 void CroppingWindow::resetLasso() {
     lassoPath = QPainterPath(); // Clear the lasso path
     pathItem->setPath(lassoPath); // Clear the path item
     qDebug() << "Lasso path reset.";
 }
 
-// void CroppingWindow::saveCrop() {
-//     if (lassoPath.isEmpty()) {
-//         qDebug() << "Lasso path is empty! Nothing to crop.";
-//         return; // Prevent saving if no lasso path is defined
-//     }
-//     QImage cropped = cropImage();
-//     if (!cropped.isNull()) {
-//         QString savePath = QFileDialog::getSaveFileName(this, "Save Cropped Image", "", "Images (*.png *.jpg)");
-//         if (!savePath.isEmpty()) {
-//             cropped.save(savePath);
-//             qDebug() << "Cropped image saved to:" << savePath;
-
-//             if (closetManager) {
-//                 qDebug() << "ClosetManager instance is valid. Calling uploadTest...";
-//                 closetManager->uploadTest(savePath.toStdString());
-//                 closetManager->saveMetadata(savePath.toStdString(), type.toStdString());
-//             } else {
-//                 qDebug() << "ClosetManager instance is null!";
-//             }
-
-//             emit imageCropped(savePath);
-//             close();
-//         }
-
-//     } else {
-//         qDebug() << "No valid crop path.";
-//     }
-// }
-
-
-// void CroppingWindow::saveCrop() {
-//     if (lassoPath.isEmpty()) {
-//         qDebug() << "Lasso path is empty! Nothing to crop.";
-//         return; // Prevent saving if no lasso path is defined
-//     }
-
-//     QImage cropped = cropImage();
-//     if (!cropped.isNull()) {
-//         // Save cropped image to a temporary file
-//         QString tempDir = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
-//         QString tempFilePath = tempDir + "/temp_cropped_image.png";
-
-//         if (!cropped.save(tempFilePath)) {
-//             qDebug() << "Failed to save cropped image to temporary file:" << tempFilePath;
-//             return;
-//         }
-
-//         qDebug() << "Temporary cropped image saved to:" << tempFilePath;
-
-//         // Use ClosetManager to handle the final path and metadata
-//         if (closetManager) {
-//             qDebug() << "ClosetManager instance is valid. Calling uploadTest...";
-//             closetManager->uploadTest(tempFilePath.toStdString(), type.toStdString()); // Move to the final directory
-//             closetManager->saveMetadata(tempFilePath.toStdString(), type.toStdString());
-//         } else {
-//             qDebug() << "ClosetManager instance is null!";
-//         }
-
-//         emit imageCropped(tempFilePath); // Notify other components about the saved image
-//         close(); // Automatically close the cropping window
-//     } else {
-//         qDebug() << "Cropped image is null! Aborting save.";
-//     }
-// }
-
 // BUG: incrementing by 2 instead of 1, cant not increment bc s
+// Saves the cropped image made by Lasso
 void CroppingWindow::saveCrop() {
     if (lassoPath.isEmpty()) {
         qDebug() << "Lasso path is empty! Nothing to crop.";
@@ -209,9 +142,7 @@ void CroppingWindow::saveCrop() {
             }
         emit imageCropped(tempFilePath);  // Notify other components
         close();
-
         }
-
 
     } else {
         qDebug() << "No valid crop path.";
@@ -219,32 +150,7 @@ void CroppingWindow::saveCrop() {
 }
 
 
-// QImage CroppingWindow::cropImage() {
-//     if (lassoPath.isEmpty() || originalPixmap.isNull()) {
-//         qDebug() << "Invalid cropping path or image.";
-//         return QImage();
-//     }
-
-//     // Get the bounding rectangle of the lassoPath
-//     QRectF cropRect = lassoPath.boundingRect();
-
-//     // Ensure the rectangle is within the image bounds
-//     cropRect = cropRect.intersected(originalPixmap.rect());
-
-//     if (cropRect.isEmpty()) {
-//         qDebug() << "Crop rectangle is empty or outside image bounds.";
-//         return QImage();
-//     }
-
-//     // Crop the image using the bounding rectangle
-//     QImage croppedImage = originalPixmap.toImage().copy(cropRect.toRect());
-
-//     // Debug: Log cropping details
-//     qDebug() << "Crop rectangle:" << cropRect;
-//     qDebug() << "Cropped Image Size:" << croppedImage.size();
-
-//     return croppedImage;
-// }
+// Crops the path made by Lasso into the image
 QImage CroppingWindow::cropImage() {
     if (lassoPath.isEmpty() || originalPixmap.isNull()) {
         qDebug() << "Invalid cropping path or image.";
@@ -264,7 +170,7 @@ QImage CroppingWindow::cropImage() {
 }
 
 
-
+// Ensure proper area is being access with Lasso tool
 bool CroppingWindow::eventFilter(QObject *watched, QEvent *event) {
     if (watched == view) {
         if (event->type() == QEvent::MouseButtonPress ||

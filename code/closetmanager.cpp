@@ -24,6 +24,7 @@
     }
 
     ClosetManager::ClosetManager() {
+        // Initialize the count for each clothing item - for naming purposes
         typeCounts = {
             {"top", 0},
             {"bottom", 0},
@@ -32,6 +33,7 @@
         };
     }
 
+    // Upload Items to the 'clothing_pics' directory
     void ClosetManager::uploadTest(const std::string& tempFilePath, const std::string& type) {
         // Get the directory for clothing_pics
         std::filesystem::path currentDir = std::filesystem::current_path();
@@ -133,13 +135,6 @@
 //         src.close();
 //         dest.close();
 // }
-
-//     // Add item's appropriate type and colour to json file
-//    void ClosetManager::saveMetadata(const std::string &imagePath, const std::string &type)
-//    {
-//        // Example: Save metadata to a JSON file or database
-//        std::cout << "Metadata saved: " << imagePath << " (" << type << ")" << std::endl;
-//    }
 
    
 //    // API PROCESSING

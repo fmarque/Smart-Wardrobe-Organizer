@@ -14,7 +14,7 @@ SOURCES += \
     croppingwindow.cpp \
     main.cpp \
     mainmenuwindow.cpp \
-    mainwindow.cpp \
+    #mainwindow.cpp \
     loginwindow.cpp \
     outfitswindow.cpp \
     popup1.cpp \
@@ -27,7 +27,7 @@ HEADERS += \
     global.h \
     loginwindow.h \
     mainmenuwindow.h \
-    mainwindow.h \
+    #mainwindow.h \
     outfitswindow.h \
     popup1.h \
     closetmanager.h
@@ -38,7 +38,7 @@ FORMS += \
     croppingwindow.ui \
     loginwindow.ui \
     mainmenuwindow.ui \
-    mainwindow.ui \
+    #mainwindow.ui \
     outfitswindow.ui \
     popup1.ui
 

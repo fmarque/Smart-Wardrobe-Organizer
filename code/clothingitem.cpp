@@ -12,11 +12,11 @@ private:
     std::vector<std::string> keywords;
 
 public:
-    // constructor
+    // ClothingItem Constructor
     ClothingItem(const std::string &image, const std::string &clothingType)
         : image(image), clothingType(clothingType) {}
 
-    // getters and setters
+    // Getters and Setters
     std::string getImage() const {
         return image;
     }
@@ -33,10 +33,7 @@ public:
         this->clothingType = clothingType;
     }
 
-    std::vector<std::string> getKeywords() const {
-        return keywords;
-    }
-
+    // Display Clothing Item Information
     void display() const {
         std::cout << "Clothing Type: " << clothingType << std::endl;
         std::cout << "Image Path: " << image << std::endl;

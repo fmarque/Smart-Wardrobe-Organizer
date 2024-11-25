@@ -17,9 +17,7 @@ class CroppingWindow : public QMainWindow {
     Q_OBJECT
 
 public:
-    //explicit CroppingWindow(const QString &filePath, const QString &type, QWidget *parent = nullptr);
     explicit CroppingWindow(ClosetManager* manager, const QString &filePath, const QString &type, QWidget *parent = nullptr);
-
     ~CroppingWindow();
 
 protected:

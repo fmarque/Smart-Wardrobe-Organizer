@@ -19,26 +19,27 @@ OutfitsWindow::~OutfitsWindow()
     delete ui;
 }
 
+// Open the Clothing Items window upon click
 void OutfitsWindow::on_viewClothingItems_button_clicked()
 {
     this->hide();  // Hide the current window
-    ClothingItemsWindow *CIWindow = new ClothingItemsWindow(this);  // Create a new ClothingItemsWindow
+    ClothingItemsWindow *CIWindow = new ClothingItemsWindow(this);
     CIWindow->show();  // Show the new window
 }
 
-
+// Open the Closet window upon click
 void OutfitsWindow::on_viewCloset_button_clicked()
 {
     this->hide();  // Hide the current window
-    ClosetWindow *closetWindow = new ClosetWindow(this);  // Create a new ClothingItemsWindow
+    ClosetWindow *closetWindow = new ClosetWindow(this);
     closetWindow->show();  // Show the new window
 }
 
-
+// Open the Main Menu window upon click
 void OutfitsWindow::on_backToMainMenu_button_clicked()
 {
     this->hide();  // Hide the current window
-    MainMenu *mainMenuWindow = new MainMenu(this);  // Create a new OutfitsWindow
+    MainMenu *mainMenuWindow = new MainMenu(this);
     mainMenuWindow->show();  // Show the new window
 }
 

@@ -1,7 +1,7 @@
 #include "closetwindow.h"
 #include "ui_closetwindow.h"
-#include "ui_popup1.h" // Include the header for PopUp1
-#include <QFileDialog> // Include the QFileDialog header for file selection
+#include "ui_popup1.h"
+#include <QFileDialog>
 #include "clothingitemswindow.h"
 #include "outfitswindow.h"
 #include "closetmanager.h"
@@ -33,39 +33,20 @@ ClosetWindow::ClosetWindow(QWidget *parent)
     connect(popUpUi.shoesButton, &QPushButton::clicked, this, [this]() { openFileDialog("shoes"); });
 }
 
+// Destroyers
 ClosetWindow::~ClosetWindow()
 {
     delete ui;
-    delete popUp; // Clean up the pop-up widget
+    delete popUp;
 }
 
+// Connect the cropping and saving mechanism from Closet window to Closet Manager and Cropping Class
 void ClosetWindow::openFileDialog(const QString &buttonType)
 {
     // Open the file dialog and get the selected file path
     QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Images (*.png *.jpg *.jpeg)"));
     // Check if a file was selected
     if (!filePath.isEmpty()) {
-        // Convert the QString file path to std::string
-        /**
-        std::string fileStr = filePath.toStdString();
-
-        // Handle the file based on which button was clicked
-        if (buttonType == "coat") {
-            qDebug() << "Coat file selected: " << filePath;
-            ClosetManager::getInstance()->uploadTest(fileStr);  // Directly call uploadTest with file path
-        } else if (buttonType == "top") {
-            qDebug() << "Top file selected: " << filePath;
-            ClosetManager::getInstance()->uploadTest(fileStr);
-        } else if (buttonType == "bottom") {
-            qDebug() << "Bottom file selected: " << filePath;
-            ClosetManager::getInstance()->uploadTest(fileStr);
-        } else if (buttonType == "shoes") {
-            qDebug() << "Shoes file selected: " << filePath;
-            ClosetManager::getInstance()->uploadTest(fileStr);
-        }
-*/
-
-        //CroppingWindow *cropWindow = new CroppingWindow(filePath, buttonType, this);
         CroppingWindow* cropWindow = new CroppingWindow(ClosetManager::getInstance(), filePath, buttonType, this);
 
         // Connect cropping signal to handle cropped image
@@ -78,18 +59,19 @@ void ClosetWindow::openFileDialog(const QString &buttonType)
     }
 }
 
+// Open the Clothing Items window upon click
 void ClosetWindow::on_pushButton_3_clicked()
 {
     this->hide();  // Hide the current window
-    ClothingItemsWindow *CIWindow = new ClothingItemsWindow(this);  // Create a new OutfitsWindow
+    ClothingItemsWindow *CIWindow = new ClothingItemsWindow(this);
     CIWindow->show();  // Show the new window
 }
 
-
+// Open the Outfits window upon click
 void ClosetWindow::on_pushButton_2_clicked()
 {
     this->hide();  // Hide the current window
-    OutfitsWindow *outfitsWindow = new OutfitsWindow(this);  // Create a new OutfitsWindow
+    OutfitsWindow *outfitsWindow = new OutfitsWindow(this);
     outfitsWindow->show();  // Show the new window
 }
 
