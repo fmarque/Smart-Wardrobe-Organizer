@@ -5,6 +5,7 @@
 #include "outfit.h"
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include <iostream>
 #include <fstream>
 
@@ -18,12 +19,14 @@ private:
     // std::vector<Outfit> savedOutfits;
     // Private constructor (if using Singleton pattern)
     ClosetManager();
+    std::unordered_map<std::string, int> typeCounts;
+
 
 public:
     // Singleton pattern, if used
     static ClosetManager* getInstance();
 
-    void uploadTest(const std::string& filePath);
+    void uploadTest(const std::string& filePath, const std::string& type);
     void saveMetadata(const std::string &imagePath, const std::string &type);
 
     // // Upload an item using a file path and type

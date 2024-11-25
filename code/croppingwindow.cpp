@@ -2,6 +2,7 @@
 #include "ui_croppingwindow.h" // Include the auto-generated UI header
 #include "closetmanager.h"
 #include <QFileDialog>
+#include <QStandardPaths>
 #include <QMainWindow>
 #include <QGraphicsPixmapItem>
 #include <QPainter>
@@ -58,6 +59,15 @@ CroppingWindow::CroppingWindow(ClosetManager* manager, const QString &filePath, 
     connect(ui->saveCropButton, &QPushButton::clicked, this, &CroppingWindow::saveCrop);
     connect(ui->resetLassoButton, &QPushButton::clicked, this, &CroppingWindow::resetLasso);
 
+    // pure debugging
+    if (!originalPixmap.isNull()) {
+        qDebug() << "Loaded original pixmap with size:" << originalPixmap.size();
+    } else {
+        qDebug() << "Failed to load original pixmap.";
+    }
+
+
+
     setWindowTitle("Crop Image");
     resize(800, 600);
 }
@@ -104,38 +114,109 @@ void CroppingWindow::resetLasso() {
     qDebug() << "Lasso path reset.";
 }
 
+// void CroppingWindow::saveCrop() {
+//     if (lassoPath.isEmpty()) {
+//         qDebug() << "Lasso path is empty! Nothing to crop.";
+//         return; // Prevent saving if no lasso path is defined
+//     }
+//     QImage cropped = cropImage();
+//     if (!cropped.isNull()) {
+//         QString savePath = QFileDialog::getSaveFileName(this, "Save Cropped Image", "", "Images (*.png *.jpg)");
+//         if (!savePath.isEmpty()) {
+//             cropped.save(savePath);
+//             qDebug() << "Cropped image saved to:" << savePath;
+
+//             if (closetManager) {
+//                 qDebug() << "ClosetManager instance is valid. Calling uploadTest...";
+//                 closetManager->uploadTest(savePath.toStdString());
+//                 closetManager->saveMetadata(savePath.toStdString(), type.toStdString());
+//             } else {
+//                 qDebug() << "ClosetManager instance is null!";
+//             }
+
+//             emit imageCropped(savePath);
+//             close();
+//         }
+
+//     } else {
+//         qDebug() << "No valid crop path.";
+//     }
+// }
+
+
+// void CroppingWindow::saveCrop() {
+//     if (lassoPath.isEmpty()) {
+//         qDebug() << "Lasso path is empty! Nothing to crop.";
+//         return; // Prevent saving if no lasso path is defined
+//     }
+
+//     QImage cropped = cropImage();
+//     if (!cropped.isNull()) {
+//         // Save cropped image to a temporary file
+//         QString tempDir = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+//         QString tempFilePath = tempDir + "/temp_cropped_image.png";
+
+//         if (!cropped.save(tempFilePath)) {
+//             qDebug() << "Failed to save cropped image to temporary file:" << tempFilePath;
+//             return;
+//         }
+
+//         qDebug() << "Temporary cropped image saved to:" << tempFilePath;
+
+//         // Use ClosetManager to handle the final path and metadata
+//         if (closetManager) {
+//             qDebug() << "ClosetManager instance is valid. Calling uploadTest...";
+//             closetManager->uploadTest(tempFilePath.toStdString(), type.toStdString()); // Move to the final directory
+//             closetManager->saveMetadata(tempFilePath.toStdString(), type.toStdString());
+//         } else {
+//             qDebug() << "ClosetManager instance is null!";
+//         }
+
+//         emit imageCropped(tempFilePath); // Notify other components about the saved image
+//         close(); // Automatically close the cropping window
+//     } else {
+//         qDebug() << "Cropped image is null! Aborting save.";
+//     }
+// }
+
+// BUG: incrementing by 2 instead of 1, cant not increment bc s
 void CroppingWindow::saveCrop() {
     if (lassoPath.isEmpty()) {
         qDebug() << "Lasso path is empty! Nothing to crop.";
-        return; // Prevent saving if no lasso path is defined
+        return;
     }
+
     QImage cropped = cropImage();
     if (!cropped.isNull()) {
-        QString savePath = QFileDialog::getSaveFileName(this, "Save Cropped Image", "", "Images (*.png *.jpg)");
-        if (!savePath.isEmpty()) {
-            cropped.save(savePath);
-            qDebug() << "Cropped image saved to:" << savePath;
+        // Save cropped image temporarily
+        QString tempDir = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+        QString tempFilePath = tempDir + "/temp_cropped_image.png";
+        if (!cropped.save(tempFilePath)) {
+            qDebug() << "Failed to save temporary cropped image.";
+            return;
+        }
+
+        if (!tempFilePath.isEmpty()) {
+            cropped.save(tempFilePath);
+
+                qDebug() << "Temporary cropped image saved to:" << tempFilePath;
 
             if (closetManager) {
                 qDebug() << "ClosetManager instance is valid. Calling uploadTest...";
-                closetManager->uploadTest(savePath.toStdString());
-                closetManager->saveMetadata(savePath.toStdString(), type.toStdString());
+                closetManager->uploadTest(tempFilePath.toStdString(), type.toStdString());
             } else {
                 qDebug() << "ClosetManager instance is null!";
             }
-
-            emit imageCropped(savePath);
-
         }
 
 
-
-
-
+        emit imageCropped(tempFilePath);  // Notify other components
+        close();
     } else {
         qDebug() << "No valid crop path.";
     }
 }
+
 
 QImage CroppingWindow::cropImage() {
     if (lassoPath.isEmpty() || originalPixmap.isNull()) {
@@ -143,17 +224,29 @@ QImage CroppingWindow::cropImage() {
         return QImage();
     }
 
-    QImage croppedImage(originalPixmap.size(), QImage::Format_ARGB32);
-    croppedImage.fill(Qt::transparent);
+    // Get the bounding rectangle of the lassoPath
+    QRectF cropRect = lassoPath.boundingRect();
 
-    QPainter painter(&croppedImage);
-    painter.setClipPath(lassoPath); // Clip to the lasso path
-    painter.drawPixmap(0, 0, originalPixmap); // Draw the clipped image
-    painter.end();
+    // Ensure the rectangle is within the image bounds
+    cropRect = cropRect.intersected(originalPixmap.rect());
 
-    qDebug() << "Image cropped successfully.";
+    if (cropRect.isEmpty()) {
+        qDebug() << "Crop rectangle is empty or outside image bounds.";
+        return QImage();
+    }
+
+    // Crop the image using the bounding rectangle
+    QImage croppedImage = originalPixmap.toImage().copy(cropRect.toRect());
+
+    // Debug: Log cropping details
+    qDebug() << "Crop rectangle:" << cropRect;
+    qDebug() << "Cropped Image Size:" << croppedImage.size();
+
     return croppedImage;
 }
+
+
+
 
 bool CroppingWindow::eventFilter(QObject *watched, QEvent *event) {
     if (watched == view) {

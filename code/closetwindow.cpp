@@ -71,7 +71,7 @@ void ClosetWindow::openFileDialog(const QString &buttonType)
         // Connect cropping signal to handle cropped image
         connect(cropWindow, &CroppingWindow::imageCropped, this, [this, buttonType](const QString &croppedPath) {
             // Upload cropped image and save metadata
-            ClosetManager::getInstance()->uploadTest(croppedPath.toStdString());
+            ClosetManager::getInstance()->uploadTest(croppedPath.toStdString(), buttonType.toStdString());
             ClosetManager::getInstance()->saveMetadata(croppedPath.toStdString(), buttonType.toStdString());
         });
         cropWindow->show();

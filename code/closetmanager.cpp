@@ -4,6 +4,10 @@
 #include <iostream>
 #include <fstream>
 #include <filesystem>
+#include <unordered_map>
+#include <sstream>
+#include <QDebug>
+#include <QString>
 
 
 
@@ -14,29 +18,26 @@
     // std::vector<ClothingItem*> uploadedItems;  // Will store all ClothingItems (Top, Bottom, Shoe, etc.)
     // std::vector<Outfit> savedOutfits;
 
-
-
     ClosetManager* ClosetManager::getInstance() {
     static ClosetManager instance;  // Singleton pattern
     return &instance;
     }
 
-    ClosetManager::ClosetManager() {}
+    ClosetManager::ClosetManager() {
+        typeCounts = {
+            {"top", 0},
+            {"bottom", 0},
+            {"shoe", 0},
+            {"coat", 0}
+        };
+    }
 
-
-
-    // upload test to see if front end sends image to backend 
-   void ClosetManager::uploadTest(const std::string &filePath) {
-        // Get the current working directory (where the executable is running)
+    void ClosetManager::uploadTest(const std::string& tempFilePath, const std::string& type) {
+        // Get the directory for clothing_pics
         std::filesystem::path currentDir = std::filesystem::current_path();
-
-        // Navigate up to the 'code' directory (two levels up)
         std::filesystem::path targetFolder = currentDir.parent_path().parent_path().parent_path().parent_path() / "clothing_pics";
 
-        // Debug: Print the target folder to verify
-        std::cout << "Target folder: " << targetFolder << std::endl;
-
-        // Check if the directory exists, create it if it doesn't
+        // Ensure the directory exists
         if (!std::filesystem::exists(targetFolder)) {
             if (!std::filesystem::create_directory(targetFolder)) {
                 std::cerr << "Failed to create directory: " << targetFolder << std::endl;
@@ -44,46 +45,101 @@
             }
         }
 
-        // Extract the file name from the filePath (extracting everything after the last '/')
-        size_t pos = filePath.find_last_of("/\\");
-        std::string fileName = filePath.substr(pos + 1);
+        // Generate unique file name
+        int& count = typeCounts[type];
+        std::filesystem::path targetPath;
 
-        // Create the target path for saving the file
-        std::filesystem::path targetPath = targetFolder / fileName;
+        do {  // this is potentiallt the issue
+            std::string uniqueFileName = type + "_" + std::to_string(++count) + ".png"; // Increment counter here
+            targetPath = targetFolder / uniqueFileName;
+        } while (std::filesystem::exists(targetPath)); // Ensure file doesn't already exist
 
-        // Debug: Print the full target path
-        std::cout << "Target path: " << targetPath << std::endl;
+        qDebug() << "Target path for renaming:" << QString::fromStdString(targetPath.string());
 
-        // Open the source file (image) for reading
-        std::ifstream src(filePath, std::ios::binary);
-        if (!src.is_open()) {
-            std::cerr << "Failed to open source file: " << filePath << std::endl;
+
+
+        // Attempt to move the file
+        try {
+            std::filesystem::rename(tempFilePath, targetPath);
+            std::cout << "File has been uploaded to: " << targetPath << std::endl;
+        } catch (const std::filesystem::filesystem_error& e) {
+            //std::cerr << "Failed to move file: " << e.what() << std::endl;
             return;
-        }
+        }  // BUG: tries this twice
 
-        // Open the target file (in the clothing_pics directory) for writing
-        std::ofstream dest(targetPath, std::ios::binary);
-        if (!dest.is_open()) {
-            std::cerr << "Failed to open destination file: " << targetPath << std::endl;
-            return;
-        }
+        // Save metadata
+        saveMetadata(targetPath.string(), type);
+    }
 
-        // Copy the contents from the source file to the target file
-        dest << src.rdbuf();
 
-        std::cout << "File has been uploaded to: " << targetPath << std::endl;
 
-        // Close the file streams
-        src.close();
-        dest.close();
-}
 
-    // Add item's appropriate type and colour to json file
-   void ClosetManager::saveMetadata(const std::string &imagePath, const std::string &type)
-   {
-       // Example: Save metadata to a JSON file or database
-       std::cout << "Metadata saved: " << imagePath << " (" << type << ")" << std::endl;
-   }
+    void ClosetManager::saveMetadata(const std::string &imagePath, const std::string &type) {
+        // Example: Save metadata to a JSON file or database
+        std::cout << "Metadata saved: " << imagePath << " (" << type << ")" << std::endl;
+    }
+
+
+
+//     // upload test to see if front end sends image to backend
+//    void ClosetManager::uploadTest(const std::string &filePath) {
+//         // Get the current working directory (where the executable is running)
+//         std::filesystem::path currentDir = std::filesystem::current_path();
+
+//         // Navigate up to the 'code' directory (two levels up)
+//         std::filesystem::path targetFolder = currentDir.parent_path().parent_path().parent_path().parent_path() / "clothing_pics";
+
+//         // Debug: Print the target folder to verify
+//         std::cout << "Target folder: " << targetFolder << std::endl;
+
+//         // Check if the directory exists, create it if it doesn't
+//         if (!std::filesystem::exists(targetFolder)) {
+//             if (!std::filesystem::create_directory(targetFolder)) {
+//                 std::cerr << "Failed to create directory: " << targetFolder << std::endl;
+//                 return;
+//             }
+//         }
+
+//         // Extract the file name from the filePath (extracting everything after the last '/')
+//         size_t pos = filePath.find_last_of("/\\");
+//         std::string fileName = filePath.substr(pos + 1);
+
+//         // Create the target path for saving the file
+//         std::filesystem::path targetPath = targetFolder / fileName;
+
+//         // Debug: Print the full target path
+//         std::cout << "Target path: " << targetPath << std::endl;
+
+//         // Open the source file (image) for reading
+//         std::ifstream src(filePath, std::ios::binary);
+//         if (!src.is_open()) {
+//             std::cerr << "Failed to open source file: " << filePath << std::endl;
+//             return;
+//         }
+
+//         // Open the target file (in the clothing_pics directory) for writing
+//         std::ofstream dest(targetPath, std::ios::binary);
+//         if (!dest.is_open()) {
+//             std::cerr << "Failed to open destination file: " << targetPath << std::endl;
+//             return;
+//         }
+
+//         // Copy the contents from the source file to the target file
+//         dest << src.rdbuf();
+
+//         std::cout << "File has been uploaded to: " << targetPath << std::endl;
+
+//         // Close the file streams
+//         src.close();
+//         dest.close();
+// }
+
+//     // Add item's appropriate type and colour to json file
+//    void ClosetManager::saveMetadata(const std::string &imagePath, const std::string &type)
+//    {
+//        // Example: Save metadata to a JSON file or database
+//        std::cout << "Metadata saved: " << imagePath << " (" << type << ")" << std::endl;
+//    }
 
    
 //    // API PROCESSING
