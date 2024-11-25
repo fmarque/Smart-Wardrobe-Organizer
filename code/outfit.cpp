@@ -2,6 +2,7 @@
 
 class Outfit {
 public:
+    // Stores file string name for the outfit as well as the file name of each clothing item
     std::string name;
     std::string topName;
     std::string bottomName;
@@ -28,18 +29,22 @@ public:
     }
 
     // Setters
+    // Set top for outfit
     void Outfit::setTop(const std::string& top) {
         topName = top;
     }
 
+    // Set outfit bottom
     void Outfit::setBottom(const std::string& bottom) {
         bottomName = bottom;
     }
 
+    // Set outfit shoe
     void Outfit::setShoe(const std::string& shoe) {
         shoeName = shoe;
     }
 
+    // Set outfit coat
     void Outfit::setCoat(const std::string& coat) {
         coatName = coat;
     }

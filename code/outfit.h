@@ -4,6 +4,14 @@
 #include <string>
 
 class Outfit {
+
+private:
+    std::string name;
+    std::string topName;
+    std::string bottomName;
+    std::string shoeName;
+    std::string coatName;
+    
 public:
     // Constructor
     Outfit(const std::string& name);
@@ -22,17 +30,7 @@ public:
 
     // Name getter and setter
     std::string getName() const;
-
     void setName(const std::string& newName);
-
-
-private:
-    std::string name;
-    std::string topName;
-    std::string bottomName;
-    std::string shoeName;
-    std::string coatName;
 };
-
 
 #endif // OUTFIT_H

@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-// Declaration of the ClothingItem class
+
 class ClothingItem {
 private:
     std::string image;
@@ -12,22 +12,22 @@ private:
     std::vector<std::string> keywords;
 
 public:
-    // constructor
+    // Constructor
     ClothingItem(const std::string &image, const std::string &clothingType);
 
-    // getter and setter for image
+    // Getter and setter for image
     std::string getImage() const;
     void setImage(const std::string &image);
 
-    // getter and setter for clothingType
+    // Getter and setter for clothingType
     std::string getClothingType() const;
     void setClothingType(const std::string &clothingType);
 
-    // methods for keywords
-    std::vector<std::string> getKeywords() const;
-    void addKeyword(const std::string &keyword);
+    // // methods for keywords (MAY NOT USE ANYMORE)
+    // std::vector<std::string> getKeywords() const;
+    // void addKeyword(const std::string &keyword);
 
-    // display method
+    // display method for testing
     void display() const;
 };
 

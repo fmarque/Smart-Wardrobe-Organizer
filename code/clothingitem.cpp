@@ -9,31 +9,34 @@ class ClothingItem {
 private:
     std::string image;
     std::string clothingType;
-    std::vector<std::string> keywords;
+    std::vector<std::string> keywords;  // may not use this
 
 public:
-    // ClothingItem Constructor
+    // Constructor
     ClothingItem(const std::string &image, const std::string &clothingType)
         : image(image), clothingType(clothingType) {}
 
-    // Getters and Setters
+    // Get image
     std::string getImage() const {
         return image;
     }
 
+    // Set clothing image
     void setImage(const std::string &image) {
         this->image = image;
     }
 
+    // Get clothing type
     std::string getClothingType() const {
         return clothingType;
     }
 
+    // Set clothing type
     void setClothingType(const std::string &clothingType) {
         this->clothingType = clothingType;
     }
 
-    // Display Clothing Item Information
+    // display clothing item info (for testing purposes)
     void display() const {
         std::cout << "Clothing Type: " << clothingType << std::endl;
         std::cout << "Image Path: " << image << std::endl;
