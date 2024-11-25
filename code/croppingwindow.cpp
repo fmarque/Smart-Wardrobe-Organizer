@@ -207,11 +207,12 @@ void CroppingWindow::saveCrop() {
             } else {
                 qDebug() << "ClosetManager instance is null!";
             }
+        emit imageCropped(tempFilePath);  // Notify other components
+        close();
+
         }
 
 
-        emit imageCropped(tempFilePath);  // Notify other components
-        close();
     } else {
         qDebug() << "No valid crop path.";
     }
