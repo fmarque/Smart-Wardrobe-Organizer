@@ -219,33 +219,49 @@ void CroppingWindow::saveCrop() {
 }
 
 
+// QImage CroppingWindow::cropImage() {
+//     if (lassoPath.isEmpty() || originalPixmap.isNull()) {
+//         qDebug() << "Invalid cropping path or image.";
+//         return QImage();
+//     }
+
+//     // Get the bounding rectangle of the lassoPath
+//     QRectF cropRect = lassoPath.boundingRect();
+
+//     // Ensure the rectangle is within the image bounds
+//     cropRect = cropRect.intersected(originalPixmap.rect());
+
+//     if (cropRect.isEmpty()) {
+//         qDebug() << "Crop rectangle is empty or outside image bounds.";
+//         return QImage();
+//     }
+
+//     // Crop the image using the bounding rectangle
+//     QImage croppedImage = originalPixmap.toImage().copy(cropRect.toRect());
+
+//     // Debug: Log cropping details
+//     qDebug() << "Crop rectangle:" << cropRect;
+//     qDebug() << "Cropped Image Size:" << croppedImage.size();
+
+//     return croppedImage;
+// }
 QImage CroppingWindow::cropImage() {
     if (lassoPath.isEmpty() || originalPixmap.isNull()) {
         qDebug() << "Invalid cropping path or image.";
         return QImage();
     }
 
-    // Get the bounding rectangle of the lassoPath
-    QRectF cropRect = lassoPath.boundingRect();
+    QImage croppedImage(originalPixmap.size(), QImage::Format_ARGB32);
+    croppedImage.fill(Qt::transparent);
 
-    // Ensure the rectangle is within the image bounds
-    cropRect = cropRect.intersected(originalPixmap.rect());
+    QPainter painter(&croppedImage);
+    painter.setClipPath(lassoPath); // Clip to the lasso path
+    painter.drawPixmap(0, 0, originalPixmap); // Draw the clipped image
+    painter.end();
 
-    if (cropRect.isEmpty()) {
-        qDebug() << "Crop rectangle is empty or outside image bounds.";
-        return QImage();
-    }
-
-    // Crop the image using the bounding rectangle
-    QImage croppedImage = originalPixmap.toImage().copy(cropRect.toRect());
-
-    // Debug: Log cropping details
-    qDebug() << "Crop rectangle:" << cropRect;
-    qDebug() << "Cropped Image Size:" << croppedImage.size();
-
+    qDebug() << "Image cropped successfully.";
     return croppedImage;
 }
-
 
 
 
