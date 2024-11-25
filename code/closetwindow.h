@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include "ui_closetwindow.h"
 #include "ui_popup1.h"
+#include "croppingwindow.h"
 
 namespace Ui {
 class ClosetWindow;

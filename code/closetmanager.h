@@ -24,6 +24,7 @@ public:
     static ClosetManager* getInstance();
 
     void uploadTest(const std::string& filePath);
+    void saveMetadata(const std::string &imagePath, const std::string &type);
 
     // // Upload an item using a file path and type
     // void uploadItem(const std::string& filePath, const std::string& type);

@@ -43,10 +43,10 @@ void ClosetWindow::openFileDialog(const QString &buttonType)
 {
     // Open the file dialog and get the selected file path
     QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Images (*.png *.jpg *.jpeg)"));
-
     // Check if a file was selected
     if (!filePath.isEmpty()) {
         // Convert the QString file path to std::string
+        /**
         std::string fileStr = filePath.toStdString();
 
         // Handle the file based on which button was clicked
@@ -63,6 +63,18 @@ void ClosetWindow::openFileDialog(const QString &buttonType)
             qDebug() << "Shoes file selected: " << filePath;
             ClosetManager::getInstance()->uploadTest(fileStr);
         }
+*/
+
+        //CroppingWindow *cropWindow = new CroppingWindow(filePath, buttonType, this);
+        CroppingWindow* cropWindow = new CroppingWindow(ClosetManager::getInstance(), filePath, buttonType, this);
+
+        // Connect cropping signal to handle cropped image
+        connect(cropWindow, &CroppingWindow::imageCropped, this, [this, buttonType](const QString &croppedPath) {
+            // Upload cropped image and save metadata
+            ClosetManager::getInstance()->uploadTest(croppedPath.toStdString());
+            ClosetManager::getInstance()->saveMetadata(croppedPath.toStdString(), buttonType.toStdString());
+        });
+        cropWindow->show();
     }
 }
 

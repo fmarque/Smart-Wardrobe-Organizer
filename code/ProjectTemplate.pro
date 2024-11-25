@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     clothingitemswindow.cpp \
     closetwindow.cpp \
+    croppingwindow.cpp \
     main.cpp \
     mainmenuwindow.cpp \
     mainwindow.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
 HEADERS += \
     clothingitemswindow.h \
     closetwindow.h \
+    croppingwindow.h \
     global.h \
     loginwindow.h \
     mainmenuwindow.h \
@@ -33,6 +35,7 @@ HEADERS += \
 FORMS += \
     clothingitemswindow.ui \
     closetwindow.ui \
+    croppingwindow.ui \
     loginwindow.ui \
     mainmenuwindow.ui \
     mainwindow.ui \
