@@ -3,13 +3,13 @@
 
 #include <string>
 #include <vector>
-
+#include <iostream>
 
 class ClothingItem {
 private:
     std::string image;
     std::string clothingType;
-    std::vector<std::string> keywords;
+    std::vector<std::string> keywords; // Keywords may not be used.
 
 public:
     // Constructor
@@ -23,11 +23,7 @@ public:
     std::string getClothingType() const;
     void setClothingType(const std::string &clothingType);
 
-    // // methods for keywords (MAY NOT USE ANYMORE)
-    // std::vector<std::string> getKeywords() const;
-    // void addKeyword(const std::string &keyword);
-
-    // display method for testing
+    // Display method for testing
     void display() const;
 };
 
