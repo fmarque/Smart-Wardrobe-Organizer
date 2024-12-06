@@ -11,6 +11,8 @@
 #include <QLayout>
 
 
+// TO FIX: if image is too big or too small, standardize image uploads
+
 CroppingWindow::CroppingWindow(ClosetManager* manager, const QString &filePath, const QString &type, QWidget *parent)
     : QMainWindow(parent), ui(new Ui::CroppingWindow), closetManager(manager), filePath(filePath), type(type), drawing(false) {
     ui->setupUi(this);
@@ -27,8 +29,20 @@ CroppingWindow::CroppingWindow(ClosetManager* manager, const QString &filePath, 
     view->setRenderHint(QPainter::Antialiasing);
     view->setDragMode(QGraphicsView::NoDrag);
     view->setObjectName("graphicsView");
-    view->installEventFilter(this);
+    //view->installEventFilter(this);
+    //NEWWWWW
+    view->viewport()->installEventFilter(this);
+    view->setFocusPolicy(Qt::StrongFocus);
+    view->setInteractive(true); // Allow interaction with items in the scene
+    view->setMouseTracking(true); // Ensure mouse move events are captured
+    ui->photoLayout->setContentsMargins(0, 0, 0, 0);
+    ui->photoLayout->setSpacing(0);
+
     view->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+
+    //NEWWWWW
+    view->viewport()->setAttribute(Qt::WA_TransparentForMouseEvents, false);
 
 
     // Load the image into the pixmap
@@ -77,7 +91,9 @@ CroppingWindow::~CroppingWindow() {
 void CroppingWindow::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
         drawing = true;
-        QPointF scenePos = view->mapToScene(event->pos());
+        //QPointF scenePos = view->mapToScene(event->pos());
+        QPointF scenePos = view->mapToScene(view->viewport()->mapFromGlobal(event->globalPos()));
+
         lassoPath = QPainterPath(); // Reset the lasso path
         lassoPath.moveTo(scenePos);
         pathItem->setPath(lassoPath);
@@ -90,7 +106,9 @@ void CroppingWindow::mousePressEvent(QMouseEvent *event) {
 // Set necessary Lasso paths upon mouse dragging
 void CroppingWindow::mouseMoveEvent(QMouseEvent *event) {
     if (drawing) {
-        QPointF scenePos = view->mapToScene(event->pos());
+        //QPointF scenePos = view->mapToScene(event->pos());
+        QPointF scenePos = view->mapToScene(view->viewport()->mapFromGlobal(event->globalPos()));
+
         lassoPath.lineTo(scenePos); // Extend the lasso path
         pathItem->setPath(lassoPath); // Update the path in the pathItem
         qDebug() << "Lasso extended to:" << scenePos;
@@ -165,14 +183,20 @@ QImage CroppingWindow::cropImage() {
     painter.drawPixmap(0, 0, originalPixmap); // Draw the clipped image
     painter.end();
 
-    qDebug() << "Image cropped successfully.";
+    // const int STANDARD_WIDTH = 300;
+    // const int STANDARD_HEIGHT = 300;
+    // QImage resizedImage = croppedImage.scaled(STANDARD_WIDTH, STANDARD_HEIGHT, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    // qDebug() << "Image cropped successfully.";
+    //TODO: fill space before displaying, likely different for each, bc diff size image
+
     return croppedImage;
+    // return resizedImage;
 }
 
 
 // Ensure proper area is being access with Lasso tool
 bool CroppingWindow::eventFilter(QObject *watched, QEvent *event) {
-    if (watched == view) {
+    if (watched == view->viewport()) {
         if (event->type() == QEvent::MouseButtonPress ||
             event->type() == QEvent::MouseMove ||
             event->type() == QEvent::MouseButtonRelease) {
