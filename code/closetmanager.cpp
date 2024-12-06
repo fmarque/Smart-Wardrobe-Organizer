@@ -136,17 +136,6 @@
 //         dest.close();
 // }
 
-   
-//    // API PROCESSING
-//     std::string ClosetManager::processImageWithBackgroundRemover(const std::string& filePath) {
-//     // Simulate sending the image to a background remover API
-//     // Replace this with actual API call code and handling.
-//         std::string processedFilePath = filePath;  // Assuming the API modifies the image in place or returns a new path
-//         std::cout << "Processed image: " << processedFilePath << std::endl;
-//         return processedFilePath;
-//         }
-
-
 
 
     // void ClosetManager::uploadItem(const std::string& filePath, const std::string& type) {
