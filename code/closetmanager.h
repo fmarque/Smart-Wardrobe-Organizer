@@ -4,19 +4,26 @@
 #include "clothingitem.h"
 #include "outfit.h"
 #include <string>
-#include <vector>
+#include <list>
 #include <unordered_map>
 #include <iostream>
 #include <fstream>
+#include "top.h"
+#include "bottom.h"
+#include "coat.h"
+#include "shoes.h"
+#include <memory>
+
 
 class ClosetManager {
 private:
-    // std::vector<Top> tops;
-    // std::vector<Bottom> bottoms;
-    // std::vector<Shoe> shoes;
-    // std::vector<Coat> coats;
-    // std::vector<ClothingItem*> uploadedItems;  // Will store all ClothingItems (Top, Bottom, Shoe, etc.)
-    // std::vector<Outfit> savedOutfits;
+    std::list<ClothingItem*> tops;
+    std::list<ClothingItem*> bottoms;
+    std::list<ClothingItem*> shoes;
+    std::list<ClothingItem*> coats;
+    std::list<ClothingItem*> uploadedItems;
+    std::list<Outfit> savedOutfits;
+
     // Private constructor (if using Singleton pattern)
     ClosetManager();
     std::unordered_map<std::string, int> typeCounts;
@@ -29,8 +36,13 @@ public:
     void uploadTest(const std::string& filePath, const std::string& type);
     void saveMetadata(const std::string &imagePath, const std::string &type);
 
-    // // Upload an item using a file path and type
-    // void uploadItem(const std::string& filePath, const std::string& type);
+    // Upload an item using a file path and type
+    void uploadItem(const std::string& filePath, const std::string& type);
+
+    void deleteClothingItem(const std::string& imagePath);
+
+    void printClothingItems();
+
 
     // // Load clothing items (implement loading from file or other source)
     // void loadItems();
@@ -49,8 +61,8 @@ public:
     //                 const std::string& bottomName, const std::string& shoeName = "",
     //                 const std::string& coatName = "");
 
-    // // Add a clothing item to the closet
-    // void addClothingItem(const std::string& type, const std::string& name);
+    // Add a clothing item to the closet
+    void addClothingItem(const std::string& type, const std::string& filePath);
 
     // // Get an outfit by name
     // Outfit loadOutfit(const std::string& name);
