@@ -1,3 +1,5 @@
+#include "outfit.h"
+#include "clothingitem.h"
 #include <string>
 
 class Outfit {
@@ -58,5 +60,26 @@ public:
     void Outfit::setName(const std::string& newName) {
         name = newName;
     }
-    
+
+    // JSON Serialization
+    QJsonObject Outfit::toJSON() const {
+        QJsonObject obj;
+        obj["name"] = QString::fromStdString(name);
+        obj["top"] = QString::fromStdString(topName);
+        obj["bottom"] = QString::fromStdString(bottomName);
+        obj["shoe"] = QString::fromStdString(shoeName);
+        obj["coat"] = QString::fromStdString(coatName);
+        return obj;
+    }
+
+    // JSON Deserialization
+    Outfit Outfit::fromJSON(const QJsonObject& obj) {
+        Outfit outfit(obj["name"].toString().toStdString());
+        outfit.setTop(obj["top"].toString().toStdString());
+        outfit.setBottom(obj["bottom"].toString().toStdString());
+        outfit.setShoe(obj["shoe"].toString().toStdString());
+        outfit.setCoat(obj["coat"].toString().toStdString());
+        return outfit;
+    }
+        
 };

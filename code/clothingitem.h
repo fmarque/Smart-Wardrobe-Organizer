@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <QJsonObject>
+#include <QJsonArray>
 
 class ClothingItem {
 private:
@@ -25,6 +27,10 @@ public:
 
     // Display method for testing
     void display() const;
+
+    QJsonObject toJSON() const;                // Convert ClothingItem to JSON
+    static ClothingItem fromJSON(const QJsonObject &obj); // Create ClothingItem from JSON
+
 };
 
 #endif // CLOTHINGITEM_H

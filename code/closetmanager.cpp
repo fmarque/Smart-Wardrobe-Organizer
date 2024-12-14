@@ -37,7 +37,7 @@
     void ClosetManager::uploadTest(const std::string& tempFilePath, const std::string& type) {
         // Get the directory for clothing_pics
         std::filesystem::path currentDir = std::filesystem::current_path();
-        std::filesystem::path targetFolder = currentDir.parent_path().parent_path().parent_path().parent_path() / "clothing_pics";
+        std::filesystem::path targetFolder = currentDir.parent_path().parent_path().parent_path() / "clothing_pics";
 
         // Ensure the directory exists
         if (!std::filesystem::exists(targetFolder)) {

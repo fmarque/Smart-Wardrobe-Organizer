@@ -2,6 +2,8 @@
 #define OUTFIT_H
 
 #include <string>
+#include <QJsonObject>
+#include <QJsonArray>
 
 class Outfit {
 
@@ -14,7 +16,7 @@ private:
     
 public:
     // Constructor
-    Outfit(const std::string& name);
+    Outfit(const std::string& name = "");
 
     // Getters
     std::string getTop() const;
@@ -31,6 +33,10 @@ public:
     // Name getter and setter
     std::string getName() const;
     void setName(const std::string& newName);
+
+    // JSON Serialization and Deserialization
+    QJsonObject toJSON() const;
+    static Outfit fromJSON(const QJsonObject& obj);
 };
 
 #endif // OUTFIT_H
