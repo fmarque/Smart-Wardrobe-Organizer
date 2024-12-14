@@ -35,10 +35,10 @@ HEADERS += \
     popup1.h \
     closetmanager.h \
     clothingitem.h \
-    Top.h \
-    Bottom.h \
-    Shoes.h \
-    Coat.h
+    top.h \
+    bottom.h \
+    shoes.h \
+    coat.h
 
 FORMS += \
     clothingitemswindow.ui \

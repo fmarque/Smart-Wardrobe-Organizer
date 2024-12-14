@@ -1,6 +1,10 @@
 #include "closetmanager.h"
 #include "clothingitem.h"
 #include "outfit.h"
+#include "top.h"
+#include "bottom.h"
+#include "coat.h"
+#include "shoes.h"
 #include <iostream>
 #include <fstream>
 #include <filesystem>
@@ -8,15 +12,17 @@
 #include <sstream>
 #include <QDebug>
 #include <QString>
+#include <list>
+#include <memory>
 
 
+    std::list<ClothingItem*> tops;
+    std::list<ClothingItem*> bottoms;
+    std::list<ClothingItem*> shoes;
+    std::list<ClothingItem*> coats;
+    std::list<ClothingItem*> uploadedItems;
+    std::list<Outfit> savedOutfits;
 
-    // std::vector<Top> tops;
-    // std::vector<Bottom> bottoms;
-    // std::vector<Shoe> shoes;
-    // std::vector<Coat> coats;
-    // std::vector<ClothingItem*> uploadedItems;  // Will store all ClothingItems (Top, Bottom, Shoe, etc.)
-    // std::vector<Outfit> savedOutfits;
 
     ClosetManager* ClosetManager::getInstance() {
     static ClosetManager instance;  // Singleton pattern
@@ -64,6 +70,10 @@
         try {
             std::filesystem::rename(tempFilePath, targetPath);
             std::cout << "File has been uploaded to: " << targetPath << std::endl;
+
+            addClothingItem(type, targetPath.string());
+            printClothingItems();
+
         } catch (const std::filesystem::filesystem_error& e) {
             //std::cerr << "Failed to move file: " << e.what() << std::endl;
             return;
@@ -136,30 +146,108 @@
 //         dest.close();
 // }
 
+void ClosetManager::addClothingItem(const std::string& type, const std::string& filePath) {
+    ClothingItem* newItem = nullptr;
+    std::string clothingType = type;  // Use the passed 'type' for clothingType
+    std::string colour = "unknown";   // Use a placeholder value or dynamically get the colour
+
+    // Create the appropriate clothing item based on 'type'
+    if (type == "top") {
+        newItem = new Top(filePath, clothingType, colour);  // Pass filePath, clothingType, and colour
+        tops.push_back(newItem);
+    } else if (type == "bottom") {
+        newItem = new Bottom(filePath, clothingType, colour);
+        bottoms.push_back(newItem);
+    } else if (type == "shoe") {
+        newItem = new Shoes(filePath, clothingType, colour);
+        shoes.push_back(newItem);
+    } else if (type == "coat") {
+        newItem = new Coat(filePath, clothingType, colour);
+        coats.push_back(newItem);
+    }
+
+    // Add to the general list of uploaded items
+    if (newItem) {
+        uploadedItems.push_back(newItem);
+        std::cout << "Successfully added " << type << " to the closet: " << filePath << std::endl;
+    } else {
+        std::cerr << "Unknown clothing type: " << type << std::endl;
+    }
+}
+
+void ClosetManager::deleteClothingItem(const std::string& imagePath) {
+    // Lambda to check if an item matches the image path
+    auto deleteCondition = [&imagePath](ClothingItem* item) {
+        return item->getImage() == imagePath;
+    };
+
+    // Remove from each list
+    tops.remove_if(deleteCondition);
+    bottoms.remove_if(deleteCondition);
+    shoes.remove_if(deleteCondition);
+    coats.remove_if(deleteCondition);
+    uploadedItems.remove_if(deleteCondition);
+
+   std::cout << "Item with image path " << imagePath << " has been removed from all lists." << std::endl;
+
+    // Get the current working directory
+    std::filesystem::path currentPath = std::filesystem::current_path();
+
+    // Go up four levels to get to the project root, then append "clothing_pics"
+    std::filesystem::path clothingPicsDir = currentPath.parent_path().parent_path().parent_path().parent_path() / "clothing_pics"; 
+
+    // Combine the clothing_pics directory with the image file name
+    std::filesystem::path filePath = clothingPicsDir / imagePath;
+
+    // Debug: Print the full file path being used
+    std::cout << "Full file path: " << filePath << std::endl;
+
+    // Attempt to delete the image file
+    if (std::filesystem::exists(filePath)) {
+        if (std::filesystem::remove(filePath)) {
+            std::cout << "Image file " << imagePath << " has been deleted from clothing_pics." << std::endl;
+        } else {
+            std::cerr << "Failed to delete image file " << imagePath << "." << std::endl;
+        }
+    } else {
+        std::cerr << "Image file " << imagePath << " not found in clothing_pics." << std::endl;
+    }
+}
 
 
-    // void ClosetManager::uploadItem(const std::string& filePath, const std::string& type) {
-    //     std::string processedFilePath = processImageWithBackgroundRemover(filePath);
+void ClosetManager::printClothingItems() {
+    // Print all tops
+    std::cout << "Tops:" << std::endl;
+    for (const auto& item : tops) {
+        std::cout << "Image Path: " << item->getImage() << ", Type: " << item->getClothingType() << std::endl;
+    }
 
-    //     // Create a new ClothingItem with the processed image and the type
-    //     ClothingItem* newItem = new ClothingItem(processedFilePath, type);
+    // Print all bottoms
+    std::cout << "Bottoms:" << std::endl;
+    for (const auto& item : bottoms) {
+        std::cout << "Image Path: " << item->getImage() << ", Type: " << item->getClothingType() << std::endl;
+    }
 
-    //     // Add the item to the appropriate category
-    //     if (type == "top") {
-    //         tops.push_back(*newItem);
-    //     } else if (type == "bottom") {
-    //         bottoms.push_back(*newItem);
-    //     } else if (type == "shoe") {
-    //         shoes.push_back(*newItem);
-    //     } else if (type == "coat") {
-    //         coats.push_back(*newItem);
-    //     }
+    // Print all shoes
+    std::cout << "Shoes:" << std::endl;
+    for (const auto& item : shoes) {
+        std::cout << "Image Path: " << item->getImage() << ", Type: " << item->getClothingType() << std::endl;
+    }
 
-    //     // Add to uploaded items
-    //     uploadedItems.push_back(newItem);
+    // Print all coats
+    std::cout << "Coats:" << std::endl;
+    for (const auto& item : coats) {
+        std::cout << "Image Path: " << item->getImage() << ", Type: " << item->getClothingType() << std::endl;
+    }
 
-    //     std::cout << "Uploaded and processed " << type << " item: " << processedFilePath << std::endl;
-    // }
+    // Print all uploaded items
+    std::cout << "Uploaded Items:" << std::endl;
+    for (const auto& item : uploadedItems) {
+        std::cout << "Image Path: " << item->getImage() << ", Type: " << item->getClothingType() << std::endl;
+    }
+}
+
+
 
     // // Load clothing items (implement loading from file or other source)
     // void loadItems() {
@@ -184,33 +272,33 @@
     //     uploadedItems.push_back(item);
     // }
 
-//     // Save a new outfit with just clothing names
-//     void saveOutfit(std::string outfitName, std::string topName, std::string bottomName,
-//                     std::string shoeName = "", std::string coatName = "") {
-//         Outfit newOutfit(outfitName);
+    // // Save a new outfit with just clothing names
+    // void saveOutfit(std::string outfitName, std::string topName, std::string bottomName,
+    //                 std::string shoeName = "", std::string coatName = "") {
+    //     Outfit newOutfit(outfitName);
 
-//         newOutfit.setTop(topName);
-//         newOutfit.setBottom(bottomName);
-//         if (!shoeName.empty()) newOutfit.setShoe(shoeName);
-//         if (!coatName.empty()) newOutfit.setCoat(coatName);
+    //     newOutfit.setTop(topName);
+    //     newOutfit.setBottom(bottomName);
+    //     if (!shoeName.empty()) newOutfit.setShoe(shoeName);
+    //     if (!coatName.empty()) newOutfit.setCoat(coatName);
 
-//         savedOutfits.push_back(newOutfit);
-//     }
+    //     savedOutfits.push_back(newOutfit);
+    // }
 
-//     // Add a clothing item to the closet
-//     void addClothingItem(std::string type, std::string name) {
-//         ClothingItem* item = new ClothingItem(name);
+    // // Add a clothing item to the closet
+    // void addClothingItem(std::string type, std::string name) {
+    //     ClothingItem* item = new ClothingItem(name);
 
-//         if (type == "top") {
-//             tops.push_back(item);
-//         } else if (type == "bottom") {
-//             bottoms.push_back(item);
-//         } else if (type == "shoes") {
-//             shoes.push_back(item);
-//         } else if (type == "coat") {
-//             coats.push_back(item);
-//         }
-//     }
+    //     if (type == "top") {
+    //         tops.push_back(item);
+    //     } else if (type == "bottom") {
+    //         bottoms.push_back(item);
+    //     } else if (type == "shoes") {
+    //         shoes.push_back(item);
+    //     } else if (type == "coat") {
+    //         coats.push_back(item);
+    //     }
+    // }
 
 //     // Get an outfit by name
 //     Outfit loadOutfit(std::string name) {
