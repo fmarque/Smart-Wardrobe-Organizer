@@ -1,9 +1,14 @@
 #include "clothingitem.h"
+#include "top.h"
+#include "bottom.h"
+#include "coat.h"
+#include "shoes.h"
 #include <iostream>
 
 // Constructor
 ClothingItem::ClothingItem(const std::string &image, const std::string &clothingType)
     : image(image), clothingType(clothingType) {}
+
 
 // Getter and setter for image
 std::string ClothingItem::getImage() const {
@@ -37,32 +42,31 @@ void ClothingItem::display() const {
 // JSON Serialization
 QJsonObject ClothingItem::toJSON() const {
     QJsonObject obj;
-    obj["image"] = QString::fromStdString(image);
+    obj["imagePath"] = QString::fromStdString(image);
     obj["clothingType"] = QString::fromStdString(clothingType);
-
-    // Optional: Serialize keywords if needed
-    QJsonArray keywordsArray;
-    for (const auto &keyword : keywords) {
-        keywordsArray.append(QString::fromStdString(keyword));
-    }
-    obj["keywords"] = keywordsArray;
-
     return obj;
 }
 
-ClothingItem ClothingItem::fromJSON(const QJsonObject &obj) {
-    ClothingItem item(
-        obj["image"].toString().toStdString(),
-        obj["clothingType"].toString().toStdString()
-    );
+ClothingItem* ClothingItem::fromJSON(const QJsonObject& obj) {
+    std::string image = obj["image"].toString().toStdString();
+    std::string clothingType = obj["clothingType"].toString().toStdString();
 
-    // Optional: Deserialize keywords if needed
-    if (obj.contains("keywords")) {
-        QJsonArray keywordsArray = obj["keywords"].toArray();
-        for (const auto &keyword : keywordsArray) {
-            item.keywords.push_back(keyword.toString().toStdString());
-        }
+    // Factory logic to create the appropriate subclass
+    if (clothingType == "top") {
+        std::string colour = obj["colour"].toString().toStdString();
+        return new Top(image, clothingType, colour);
+    } else if (clothingType == "bottom") {
+        std::string colour = obj["colour"].toString().toStdString();
+        return new Bottom(image, clothingType, colour);
+    } else if (clothingType == "shoe") {
+        std::string colour = obj["colour"].toString().toStdString();
+        return new Shoes(image, clothingType, colour);
+    } else if (clothingType == "coat") {
+        std::string colour = obj["colour"].toString().toStdString();
+        return new Coat(image, clothingType, colour);
     }
 
-    return item;
+    // Default to nullptr if the type is unknown
+    return nullptr;
 }
+

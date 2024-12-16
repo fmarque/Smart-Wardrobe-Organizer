@@ -1,0 +1,18 @@
+{
+    "bottoms": [
+    ],
+    "coats": [
+        {
+            "clothingType": "coat",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\coat_20.png"
+        }
+    ],
+    "shoes": [
+        {
+            "clothingType": "shoes",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\shoes_15.png"
+        }
+    ],
+    "tops": [
+    ]
+}

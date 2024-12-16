@@ -1,6 +1,10 @@
 #ifndef CLOTHINGITEM_H
 #define CLOTHINGITEM_H
 
+// #include "top.h"
+// #include "bottom.h"
+// #include "coat.h"
+// #include "shoes.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -15,8 +19,8 @@ private:
 
 public:
     // Constructor
-    ClothingItem(const std::string &image, const std::string &clothingType);
-
+    ClothingItem(const std::string& image, const std::string& clothingType);
+    virtual ~ClothingItem() = default;
     // Getter and setter for image
     std::string getImage() const;
     void setImage(const std::string &image);
@@ -26,10 +30,12 @@ public:
     void setClothingType(const std::string &clothingType);
 
     // Display method for testing
-    void display() const;
+    virtual void display() const = 0;
 
-    QJsonObject toJSON() const;                // Convert ClothingItem to JSON
-    static ClothingItem fromJSON(const QJsonObject &obj); // Create ClothingItem from JSON
+    // QJsonObject toJSON() const;                // Convert ClothingItem to JSON
+    // static ClothingItem* fromJSON(const QJsonObject &obj); // Create ClothingItem from JSON
+    virtual QJsonObject toJSON() const;
+    static ClothingItem* fromJSON(const QJsonObject& obj); // Factory method
 
 };
 

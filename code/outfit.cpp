@@ -2,8 +2,7 @@
 #include "clothingitem.h"
 #include <string>
 
-class Outfit {
-public:
+
     // Stores file string name for the outfit as well as the file name of each clothing item
     std::string name;
     std::string topName;
@@ -82,4 +81,3 @@ public:
         return outfit;
     }
         
-};

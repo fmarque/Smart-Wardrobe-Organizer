@@ -5,6 +5,7 @@
 #include "bottom.h"
 #include "coat.h"
 #include "shoes.h"
+#include "jsonmanager.h"
 #include <iostream>
 #include <fstream>
 #include <filesystem>
@@ -14,6 +15,8 @@
 #include <QString>
 #include <list>
 #include <memory>
+#include <QJsonObject>
+
 
 
     std::list<ClothingItem*> tops;
@@ -22,6 +25,8 @@
     std::list<ClothingItem*> coats;
     std::list<ClothingItem*> uploadedItems;
     std::list<Outfit> savedOutfits;
+    QString clothingFilePath = QCoreApplication::applicationDirPath() + "../data/clothingItemsJSON.json";
+    QString outfitFilePath = QCoreApplication::applicationDirPath() + "../data/savedOutfitsJSON.json";
 
 
     ClosetManager* ClosetManager::getInstance() {
@@ -37,6 +42,10 @@
             {"shoe", 0},
             {"coat", 0}
         };
+
+        // initialize JSON for clothing items
+        JSONManager jsonManager;
+        jsonManager.initializeClothingItemsJSON(clothingFilePath);
     }
 
     // Upload Items to the 'clothing_pics' directory
@@ -79,72 +88,14 @@
             return;
         }  // BUG: tries this twice
 
-        // Save metadata
-        saveMetadata(targetPath.string(), type);
+
     }
-
-
-
 
     void ClosetManager::saveMetadata(const std::string &imagePath, const std::string &type) {
         // Example: Save metadata to a JSON file or database
         std::cout << "Metadata saved: " << imagePath << " (" << type << ")" << std::endl;
     }
 
-
-
-//     // upload test to see if front end sends image to backend
-//    void ClosetManager::uploadTest(const std::string &filePath) {
-//         // Get the current working directory (where the executable is running)
-//         std::filesystem::path currentDir = std::filesystem::current_path();
-
-//         // Navigate up to the 'code' directory (two levels up)
-//         std::filesystem::path targetFolder = currentDir.parent_path().parent_path().parent_path().parent_path() / "clothing_pics";
-
-//         // Debug: Print the target folder to verify
-//         std::cout << "Target folder: " << targetFolder << std::endl;
-
-//         // Check if the directory exists, create it if it doesn't
-//         if (!std::filesystem::exists(targetFolder)) {
-//             if (!std::filesystem::create_directory(targetFolder)) {
-//                 std::cerr << "Failed to create directory: " << targetFolder << std::endl;
-//                 return;
-//             }
-//         }
-
-//         // Extract the file name from the filePath (extracting everything after the last '/')
-//         size_t pos = filePath.find_last_of("/\\");
-//         std::string fileName = filePath.substr(pos + 1);
-
-//         // Create the target path for saving the file
-//         std::filesystem::path targetPath = targetFolder / fileName;
-
-//         // Debug: Print the full target path
-//         std::cout << "Target path: " << targetPath << std::endl;
-
-//         // Open the source file (image) for reading
-//         std::ifstream src(filePath, std::ios::binary);
-//         if (!src.is_open()) {
-//             std::cerr << "Failed to open source file: " << filePath << std::endl;
-//             return;
-//         }
-
-//         // Open the target file (in the clothing_pics directory) for writing
-//         std::ofstream dest(targetPath, std::ios::binary);
-//         if (!dest.is_open()) {
-//             std::cerr << "Failed to open destination file: " << targetPath << std::endl;
-//             return;
-//         }
-
-//         // Copy the contents from the source file to the target file
-//         dest << src.rdbuf();
-
-//         std::cout << "File has been uploaded to: " << targetPath << std::endl;
-
-//         // Close the file streams
-//         src.close();
-//         dest.close();
-// }
 
 void ClosetManager::addClothingItem(const std::string& type, const std::string& filePath) {
     ClothingItem* newItem = nullptr;
@@ -158,7 +109,7 @@ void ClosetManager::addClothingItem(const std::string& type, const std::string& 
     } else if (type == "bottom") {
         newItem = new Bottom(filePath, clothingType, colour);
         bottoms.push_back(newItem);
-    } else if (type == "shoe") {
+    } else if (type == "shoes") {
         newItem = new Shoes(filePath, clothingType, colour);
         shoes.push_back(newItem);
     } else if (type == "coat") {
@@ -170,6 +121,11 @@ void ClosetManager::addClothingItem(const std::string& type, const std::string& 
     if (newItem) {
         uploadedItems.push_back(newItem);
         std::cout << "Successfully added " << type << " to the closet: " << filePath << std::endl;
+
+        // Save to JSON
+        saveClothingItemsToJSON(type, newItem->toJSON());
+
+
     } else {
         std::cerr << "Unknown clothing type: " << type << std::endl;
     }
@@ -212,7 +168,60 @@ void ClosetManager::deleteClothingItem(const std::string& imagePath) {
     } else {
         std::cerr << "Image file " << imagePath << " not found in clothing_pics." << std::endl;
     }
+
+    //TODO: remove from JSON helper method
 }
+
+// void ClosetManager::saveClothingItemsToJSON(const std::string& type, QJsonObject clothingItem) {
+//     QFile file(clothingFilePath);
+//     QJsonObject root;
+
+//     // Load the existing JSON file
+//     if (file.exists()) {
+//         if (!file.open(QIODevice::ReadOnly)) {
+//             qDebug() << "Failed to open file for reading:" << clothingFilePath;
+//             return;
+//         }
+//         QJsonDocument doc(QJsonDocument::fromJson(file.readAll()));
+//         root = doc.object();
+//         file.close();
+//     }
+
+//     // Add the new clothing item to the appropriate array
+//     QJsonArray* targetArray = nullptr;
+
+void ClosetManager::saveClothingItemsToJSON(const std::string& type, QJsonObject clothingItem) {
+    JSONManager jsonManager;
+    QString arrayKey;
+
+    // Debug: Load existing data
+    QJsonObject clothingData = jsonManager.load(clothingFilePath);
+    qDebug() << "Loaded Clothing Data:" << QJsonDocument(clothingData).toJson();
+
+    // Determine the correct array to add the item to
+    if (type != "shoes") {
+        arrayKey = QString::fromStdString(type) + "s"; // E.g., "tops", "bottoms"
+    } else {
+        arrayKey = "shoes";
+    }
+    QJsonArray itemsArray = clothingData[arrayKey].toArray();
+    itemsArray.append(clothingItem);
+    clothingData[arrayKey] = itemsArray;
+
+    // Debug: Data before saving
+    qDebug() << "Clothing Data Before Saving:" << QJsonDocument(clothingData).toJson();
+
+    // Save the updated data back to the file
+    jsonManager.save(clothingFilePath, clothingData);
+
+    // Debug: Read the file to confirm changes
+    QFile file(clothingFilePath);
+    if (file.open(QIODevice::ReadOnly)) {
+        qDebug() << "File Content After Saving:" << file.readAll();
+        file.close();
+    }
+}
+
 
 
 void ClosetManager::printClothingItems() {

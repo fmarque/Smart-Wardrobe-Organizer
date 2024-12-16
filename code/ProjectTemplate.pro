@@ -22,7 +22,9 @@ SOURCES += \
     Top.cpp \
     Bottom.cpp \
     Shoes.cpp \
-    Coat.cpp
+    Coat.cpp \
+    outfit.cpp \
+    JSONManager.cpp
 
 HEADERS += \
     clothingitemswindow.h \
@@ -38,7 +40,9 @@ HEADERS += \
     top.h \
     bottom.h \
     shoes.h \
-    coat.h
+    coat.h \
+    outfit.h \
+    jsonmanager.h
 
 FORMS += \
     clothingitemswindow.ui \

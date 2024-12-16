@@ -12,7 +12,7 @@ public:
     // Constructor
     Coat(const std::string &image, const std::string &clothingType, const std::string &colour);
     std::string getColour() const;
-    void display() const;  // override
+    void display() const override;  // override
 };
 
 #endif // COAT_H

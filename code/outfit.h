@@ -31,8 +31,8 @@ public:
     void setCoat(const std::string& coat);
 
     // Name getter and setter
-    std::string getName() const;
     void setName(const std::string& newName);
+    std::string getName();
 
     // JSON Serialization and Deserialization
     QJsonObject toJSON() const;

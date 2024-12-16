@@ -8,6 +8,8 @@
 #include <unordered_map>
 #include <iostream>
 #include <fstream>
+#include <QCoreApplication>
+#include <QDir>
 #include "top.h"
 #include "bottom.h"
 #include "coat.h"
@@ -35,7 +37,9 @@ public:
 
     void uploadTest(const std::string& filePath, const std::string& type);
     void saveMetadata(const std::string &imagePath, const std::string &type);
-
+    void loadOutfitFromJSON(const QString& clothingFilePath, const QString& outfitFilePath);
+    void saveOutfitToJSON(const QString& clothingFilePath, const QString& outfitFilePath);
+    void saveClothingItemsToJSON(const std::string& type, QJsonObject clothingItem);
     // Upload an item using a file path and type
     void uploadItem(const std::string& filePath, const std::string& type);
 
@@ -72,6 +76,9 @@ public:
 
     // // Retrieve a clothing item by name from the closet lists
     // ClothingItem* getClothingItemByName(const std::string& name);
+
+    // TODO: method to clear all files from disk memory
+    // TODO: method to clear all items in all lists
 };
 
 #endif // CLOSETMANAGER_H
