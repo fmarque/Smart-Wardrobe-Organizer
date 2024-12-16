@@ -46,6 +46,13 @@
         // initialize JSON for clothing items
         JSONManager jsonManager;
         jsonManager.initializeClothingItemsJSON(clothingFilePath);
+        loadClothingItemsFromJSON();
+        qDebug() << "ITEMS LIST WITH LOAD CLOTHING UPON INIT";
+        printClothingItems();
+        qDebug() << "ClosetManager initialized and lists re-populated.";
+
+
+        // initialize JSON for saved outfits
     }
 
     // Upload Items to the 'clothing_pics' directory
@@ -88,15 +95,34 @@
             return;
         }  // BUG: tries this twice
 
+        // create an item object to store in JSON
+        ClothingItem* newItem = nullptr;
+        std::string colour = "unknown";   // Use a placeholder value or dynamically get the colour
+        if (type == "top") {
+            newItem = new Top(targetPath.string(), type, colour);  // Pass filePath, clothingType, and colour
+            tops.push_back(newItem);
+        } else if (type == "bottom") {
+            newItem = new Bottom(targetPath.string(), type, colour);
+            bottoms.push_back(newItem);
+        } else if (type == "shoes") {
+            newItem = new Shoes(targetPath.string(), type, colour);
+            shoes.push_back(newItem);
+        } else if (type == "coat") {
+            newItem = new Coat(targetPath.string(), type, colour);
+            coats.push_back(newItem);
+        }
+
+        // save item to JSON
+        if (newItem) {
+            saveClothingItemsToJSON(type, newItem->toJSON());
+        } else {
+            std::cerr << "Failed to create clothing item of type: " << type << std::endl;
+        }
 
     }
 
-    void ClosetManager::saveMetadata(const std::string &imagePath, const std::string &type) {
-        // Example: Save metadata to a JSON file or database
-        std::cout << "Metadata saved: " << imagePath << " (" << type << ")" << std::endl;
-    }
 
-
+// Method to add clothingItem objects to list during runtime, must be called upon start and when updating.
 void ClosetManager::addClothingItem(const std::string& type, const std::string& filePath) {
     ClothingItem* newItem = nullptr;
     std::string clothingType = type;  // Use the passed 'type' for clothingType
@@ -121,10 +147,6 @@ void ClosetManager::addClothingItem(const std::string& type, const std::string& 
     if (newItem) {
         uploadedItems.push_back(newItem);
         std::cout << "Successfully added " << type << " to the closet: " << filePath << std::endl;
-
-        // Save to JSON
-        saveClothingItemsToJSON(type, newItem->toJSON());
-
 
     } else {
         std::cerr << "Unknown clothing type: " << type << std::endl;
@@ -172,24 +194,6 @@ void ClosetManager::deleteClothingItem(const std::string& imagePath) {
     //TODO: remove from JSON helper method
 }
 
-// void ClosetManager::saveClothingItemsToJSON(const std::string& type, QJsonObject clothingItem) {
-//     QFile file(clothingFilePath);
-//     QJsonObject root;
-
-//     // Load the existing JSON file
-//     if (file.exists()) {
-//         if (!file.open(QIODevice::ReadOnly)) {
-//             qDebug() << "Failed to open file for reading:" << clothingFilePath;
-//             return;
-//         }
-//         QJsonDocument doc(QJsonDocument::fromJson(file.readAll()));
-//         root = doc.object();
-//         file.close();
-//     }
-
-//     // Add the new clothing item to the appropriate array
-//     QJsonArray* targetArray = nullptr;
-
 void ClosetManager::saveClothingItemsToJSON(const std::string& type, QJsonObject clothingItem) {
     JSONManager jsonManager;
     QString arrayKey;
@@ -222,6 +226,64 @@ void ClosetManager::saveClothingItemsToJSON(const std::string& type, QJsonObject
     }
 }
 
+
+// Method to load clothing from JSON into list, can be used upon app opening or to refresh
+void ClosetManager::loadClothingItemsFromJSON() {
+    JSONManager jsonManager;
+    QJsonObject clothingData = jsonManager.load(clothingFilePath);
+
+    // Clear existing lists to avoid duplication
+    tops.clear();
+    bottoms.clear();
+    shoes.clear();
+    coats.clear();
+
+    // Repopulate `tops`
+    QJsonArray topsArray = clothingData["tops"].toArray();
+    for (const auto& item : topsArray) {
+        QJsonObject obj = item.toObject();
+        tops.push_back(new Top(
+            obj["imagePath"].toString().toStdString(),  // Use "imagePath"
+            "top",
+            obj["colour"].toString("unknown").toStdString()  // Default to "unknown" if "colour" is missing
+        ));
+    }
+
+    // Repopulate `bottoms`
+    QJsonArray bottomsArray = clothingData["bottoms"].toArray();
+    for (const auto& item : bottomsArray) {
+        QJsonObject obj = item.toObject();
+        bottoms.push_back(new Bottom(
+            obj["imagePath"].toString().toStdString(),  // Use "imagePath"
+            "bottom",
+            obj["colour"].toString("unknown").toStdString()
+        ));
+    }
+
+    // Repopulate `shoes`
+    QJsonArray shoesArray = clothingData["shoes"].toArray();
+    for (const auto& item : shoesArray) {
+        QJsonObject obj = item.toObject();
+        shoes.push_back(new Shoes(
+            obj["imagePath"].toString().toStdString(),
+            "shoes",
+            obj["colour"].toString("unknown").toStdString()
+        ));
+    }
+
+    // Repopulate `coats`
+    QJsonArray coatsArray = clothingData["coats"].toArray();
+    for (const auto& item : coatsArray) {
+        QJsonObject obj = item.toObject();
+        coats.push_back(new Coat(
+            obj["imagePath"].toString().toStdString(),
+            "coat",
+            obj["colour"].toString("unknown").toStdString()
+        ));
+    }
+
+    qDebug() << "Clothing items loaded successfully from JSON.";
+}
 
 
 void ClosetManager::printClothingItems() {

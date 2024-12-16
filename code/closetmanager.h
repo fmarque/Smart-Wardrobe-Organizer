@@ -36,11 +36,11 @@ public:
     static ClosetManager* getInstance();
 
     void uploadTest(const std::string& filePath, const std::string& type);
-    void saveMetadata(const std::string &imagePath, const std::string &type);
     void loadOutfitFromJSON(const QString& clothingFilePath, const QString& outfitFilePath);
     void saveOutfitToJSON(const QString& clothingFilePath, const QString& outfitFilePath);
     void saveClothingItemsToJSON(const std::string& type, QJsonObject clothingItem);
     // Upload an item using a file path and type
+    void loadClothingItemsFromJSON();
     void uploadItem(const std::string& filePath, const std::string& type);
 
     void deleteClothingItem(const std::string& imagePath);
