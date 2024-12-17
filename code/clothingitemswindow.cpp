@@ -89,18 +89,28 @@ void ClothingItemsWindow::on_backToMainMeny_button_clicked()
     mainMenuWindow->show();  // Show the new window
 }
 
+
+void ClothingItemsWindow::onImageClicked(const QString& imagePath) {
+    // Confirm deletion
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Delete Clothing Item", "Do you want to delete this item?",
+                                  QMessageBox::Yes | QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
+        // Delete item from ClosetManager
+        ClosetManager::getInstance()->deleteClothingItemFromList(imagePath.toStdString());
+
+        // Refresh the UI (repopulate the items)
+        populateClothingItems("top");    // Pass the correct type to refresh as needed
+    }
+}
+
 void ClothingItemsWindow::populateClothingItems(const std::string& type) {
+    currentClothingType = type;
     ClosetManager* manager = ClosetManager::getInstance();
     std::list<ClothingItem*> items = manager->getClothingItemsByType(type);
 
-    // Clear the current layout
-    QLayoutItem* child;
-    while ((child = ui->clothesLayout->takeAt(0)) != nullptr) {
-        delete child->widget();
-        delete child;
-    }
+    clearClothesLayout();  // Clear existing layout
 
-    // Define target size for frames
     const QSize targetSize(220, 220);
     int row = 0, col = 0;
     const int maxColumns = 4;
@@ -108,17 +118,19 @@ void ClothingItemsWindow::populateClothingItems(const std::string& type) {
     for (ClothingItem* item : items) {
         QPixmap pixmap(QString::fromStdString(item->getImage()));
 
-        // Ensure scaling to fit QLabel size
-        QLabel* imageLabel = new QLabel();
-        imageLabel->setFixedSize(targetSize); // Set QLabel size
+        ClickableLabel* imageLabel = new ClickableLabel();
+        imageLabel->setImagePath(QString::fromStdString(item->getImage()));
+        imageLabel->setFixedSize(targetSize);
         imageLabel->setPixmap(pixmap.scaled(targetSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-        imageLabel->setAlignment(Qt::AlignCenter);
-        imageLabel->setStyleSheet("border: 1px solid gray; background-color: white;");
 
-        // Add QLabel to grid layout
+        // Ensure no duplicate connections
+        disconnect(imageLabel, nullptr, this, nullptr);
+        connect(imageLabel, &ClickableLabel::clicked, this, &ClothingItemsWindow::onImageClicked);
+
+        // Add to tracking list and layout
+        selectedLabels.append(imageLabel);
         ui->clothesLayout->addWidget(imageLabel, row, col);
 
-        // Move to next grid position
         col++;
         if (col >= maxColumns) {
             col = 0;
@@ -126,9 +138,12 @@ void ClothingItemsWindow::populateClothingItems(const std::string& type) {
         }
     }
 
-    ui->clothesLayout->setSpacing(10);  // Set spacing for a cleaner look
+    ui->clothesLayout->setSpacing(10);
     ui->clothesLayout->setAlignment(Qt::AlignTop);
+    qDebug() << "Clothing items populated for type:" << QString::fromStdString(type);
 }
+
+
 
 
 
@@ -156,5 +171,65 @@ void ClothingItemsWindow::on_uploadItem_button_clicked()
     popUp->move(pos);
     popUp->show();
 }
+
+void ClothingItemsWindow::on_massDeleteButton_clicked() {
+    deleteSelectedItems();
+}
+
+void ClothingItemsWindow::deleteSelectedItems() {
+    ClosetManager* manager = ClosetManager::getInstance();
+    QList<ClickableLabel*> toDelete;
+
+    // Collect selected items to delete
+    for (ClickableLabel* label : selectedLabels) {
+        if (label->isSelected()) {
+            toDelete.append(label);
+        }
+    }
+
+    // Perform deletions safely
+    for (ClickableLabel* label : toDelete) {
+        QString imagePath = label->getImagePath();
+        qDebug() << "Deleting Image:" << imagePath;  // Debug path
+
+        if (!imagePath.isEmpty()) {
+            // Call ClosetManager to handle deletion
+            manager->deleteClothingItemFromList(imagePath.toStdString());
+        }
+
+        // Safely remove from layout and delete the label
+        ui->clothesLayout->removeWidget(label);
+        selectedLabels.removeAll(label);  // Remove from selectedLabels
+        delete label;
+    }
+
+    // Refresh UI layout
+    populateClothingItems(currentClothingType);
+}
+
+void ClothingItemsWindow::clearClothesLayout() {
+    // Remove all widgets in clothesLayout
+    while (QLayoutItem* child = ui->clothesLayout->takeAt(0)) {
+        if (child->widget()) {
+            child->widget()->deleteLater();  // Delete safely
+        }
+        delete child;
+    }
+    selectedLabels.clear();  // Clear the selected labels list
+    qDebug() << "Clothes layout cleared.";
+}
+
+void ClothingItemsWindow::showEvent(QShowEvent* event) {
+    QMainWindow::showEvent(event);  // Call base implementation
+
+    clearClothesLayout();  // Clear layout and reset state
+    populateClothingItems("all");  // Populate with all clothing items
+    qDebug() << "Window state reset on show.";
+}
+
+
+
+
+
 
 

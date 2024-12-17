@@ -157,8 +157,6 @@ void ClosetManager::uploadTest(const std::string& tempFilePath, const std::strin
 
 
 
-
-
 // Method to add clothingItem objects to list during runtime, must be called upon start and when updating.
 void ClosetManager::addClothingItemToList(const std::string& type, const std::string& filePath) {
     ClothingItem* newItem = nullptr;
@@ -190,17 +188,74 @@ void ClosetManager::addClothingItemToList(const std::string& type, const std::st
     }
 }
 
+// void ClosetManager::deleteClothingItemFromList(const std::string& imagePath) {
+//     std::string clothingType;
+
+
+//     // // Lambda to check if an item matches the image path
+//     // auto deleteCondition = [&imagePath](ClothingItem* item) {
+//     //     return item->getImage() == imagePath;
+//     // };
+
+
+//     // Lambda to check if an item matches the image path and determine the type
+//     auto deleteCondition = [&imagePath, &clothingType](ClothingItem* item) {
+//         if (item->getImage() == imagePath) {
+//             clothingType = item->getClothingType();
+//             return true;
+//         }
+//         return false;
+//     };
+
+
+//     // Remove from each list
+//     tops.remove_if(deleteCondition);
+//     bottoms.remove_if(deleteCondition);
+//     shoes.remove_if(deleteCondition);
+//     coats.remove_if(deleteCondition);
+//     uploadedItems.remove_if(deleteCondition);
+
+//     // remove deleted list item from JSON
+//      if (!clothingType.empty()) {
+//         removeClothingItemFromJSON(clothingType, imagePath);
+//         std::cout << "Item with image path " << imagePath << " has been removed from JSON." << std::endl;
+//     } else {
+//         std::cerr << "Clothing item with image path " << imagePath << " not found in lists." << std::endl;
+//     }
+
+
+//     std::cout << "Item with image path " << imagePath << " has been removed from all lists." << std::endl;
+
+//     // Get the current working directory
+//     std::filesystem::path currentPath = std::filesystem::current_path();
+
+//     // Go up four levels to get to the project root, then append "clothing_pics"
+//     std::filesystem::path clothingPicsDir = currentPath.parent_path().parent_path().parent_path().parent_path() / "clothing_pics"; 
+
+//     // Combine the clothing_pics directory with the image file name
+//     std::filesystem::path filePath = clothingPicsDir / imagePath;
+
+//     // Debug: Print the full file path being used
+//     std::cout << "Full file path: " << filePath << std::endl;
+
+//     // Attempt to delete the image file
+//     if (std::filesystem::exists(filePath)) {
+//         if (std::filesystem::remove(filePath)) {
+//             std::cout << "Image file " << imagePath << " has been deleted from clothing_pics." << std::endl;
+//         } else {
+//             std::cerr << "Failed to delete image file " << imagePath << "." << std::endl;
+//         }
+//     } else {
+//         std::cerr << "Image file " << imagePath << " not found in clothing_pics." << std::endl;
+//     }
+
+//     //TODO: remove from JSON helper method
+// }
+
 void ClosetManager::deleteClothingItemFromList(const std::string& imagePath) {
     std::string clothingType;
 
-
-    // // Lambda to check if an item matches the image path
-    // auto deleteCondition = [&imagePath](ClothingItem* item) {
-    //     return item->getImage() == imagePath;
-    // };
-
-
-    // Lambda to check if an item matches the image path and determine the type
+    // Lambda to find and delete the item in memory
     auto deleteCondition = [&imagePath, &clothingType](ClothingItem* item) {
         if (item->getImage() == imagePath) {
             clothingType = item->getClothingType();
@@ -209,50 +264,38 @@ void ClosetManager::deleteClothingItemFromList(const std::string& imagePath) {
         return false;
     };
 
-
-    // Remove from each list
+    // Remove from lists
     tops.remove_if(deleteCondition);
     bottoms.remove_if(deleteCondition);
     shoes.remove_if(deleteCondition);
     coats.remove_if(deleteCondition);
     uploadedItems.remove_if(deleteCondition);
 
-    // remove deleted list item from JSON
-     if (!clothingType.empty()) {
+    // Remove the corresponding item from JSON
+    if (!clothingType.empty()) {
         removeClothingItemFromJSON(clothingType, imagePath);
-        std::cout << "Item with image path " << imagePath << " has been removed from JSON." << std::endl;
+        qDebug() << "Item removed from JSON:" << QString::fromStdString(imagePath);
     } else {
-        std::cerr << "Clothing item with image path " << imagePath << " not found in lists." << std::endl;
+        qDebug() << "Failed to find item with path:" << QString::fromStdString(imagePath);
     }
 
+    // Attempt to delete the image file directly
+    std::filesystem::path filePath = imagePath;  // Use the full path as provided
+    qDebug() << "Attempting to delete file:" << QString::fromStdString(filePath.string());
 
-    std::cout << "Item with image path " << imagePath << " has been removed from all lists." << std::endl;
-
-    // Get the current working directory
-    std::filesystem::path currentPath = std::filesystem::current_path();
-
-    // Go up four levels to get to the project root, then append "clothing_pics"
-    std::filesystem::path clothingPicsDir = currentPath.parent_path().parent_path().parent_path().parent_path() / "clothing_pics"; 
-
-    // Combine the clothing_pics directory with the image file name
-    std::filesystem::path filePath = clothingPicsDir / imagePath;
-
-    // Debug: Print the full file path being used
-    std::cout << "Full file path: " << filePath << std::endl;
-
-    // Attempt to delete the image file
     if (std::filesystem::exists(filePath)) {
         if (std::filesystem::remove(filePath)) {
-            std::cout << "Image file " << imagePath << " has been deleted from clothing_pics." << std::endl;
+            qDebug() << "File successfully deleted:" << QString::fromStdString(filePath.string());
         } else {
-            std::cerr << "Failed to delete image file " << imagePath << "." << std::endl;
+            qDebug() << "Failed to delete file:" << QString::fromStdString(filePath.string());
         }
     } else {
-        std::cerr << "Image file " << imagePath << " not found in clothing_pics." << std::endl;
+        qDebug() << "File not found for deletion:" << QString::fromStdString(filePath.string());
     }
-
-    //TODO: remove from JSON helper method
 }
+
+
+
 
 void ClosetManager::saveClothingItemsToJSON(const std::string& type, QJsonObject clothingItem) {
     JSONManager jsonManager;

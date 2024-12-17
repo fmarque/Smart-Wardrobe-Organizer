@@ -3,8 +3,10 @@
 
 #include <QMainWindow>
 #include <QInputDialog>
+#include <QMessageBox>
 #include "closetwindow.h"
 #include "outfitswindow.h"
+#include "clickablelabel.h"
 //#include "clothingitemswindow.h"
 
 namespace Ui {
@@ -37,10 +39,19 @@ private slots:
     void on_pushButton_4_clicked();
     void on_uploadItem_button_clicked();
 
+    void onImageClicked(const QString& imagePath);
+    void on_massDeleteButton_clicked();
+    void showEvent(QShowEvent* event);
+
 private:
     Ui::ClothingItemsWindow *ui;
     QWidget *popUp;  // Reuse pop-up for selecting clothing type
     void openFileDialog(const QString &buttonType);  // Shared logic
+    QList<ClickableLabel*> selectedLabels;
+    void deleteSelectedItems();
+    void clearClothesLayout();
+    std::string currentClothingType;
+
 };
 
 #endif // CLOTHINGITEMSWINDOW_H
