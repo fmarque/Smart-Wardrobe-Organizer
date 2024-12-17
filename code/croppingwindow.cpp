@@ -189,8 +189,11 @@ QImage CroppingWindow::cropImage() {
     // qDebug() << "Image cropped successfully.";
     //TODO: fill space before displaying, likely different for each, bc diff size image
 
-    return croppedImage;
-    // return resizedImage;
+    const int STANDARD_WIDTH = 220;
+    const int STANDARD_HEIGHT = 220;
+    QImage resizedImage = croppedImage.scaled(STANDARD_WIDTH, STANDARD_HEIGHT, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    //return croppedImage;
+    return resizedImage;
 }
 
 

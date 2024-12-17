@@ -1,18 +1,82 @@
 {
     "bottoms": [
+        {
+            "clothingType": "bottom",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\bottom_37.png"
+        },
+        {
+            "clothingType": "bottom",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\bottom_38.png"
+        }
     ],
     "coats": [
         {
             "clothingType": "coat",
             "imagePath": "C:\\Users\\egavi\\clothing_pics\\coat_20.png"
+        },
+        {
+            "clothingType": "coat",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\coat_21.png"
+        },
+        {
+            "clothingType": "coat",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\coat_22.png"
+        },
+        {
+            "clothingType": "coat",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\coat_23.png"
+        },
+        {
+            "clothingType": "coat",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\coat_24.png"
+        },
+        {
+            "clothingType": "coat",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\coat_26.png"
+        },
+        {
+            "clothingType": "coat",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\coat_25.png"
         }
     ],
     "shoes": [
         {
             "clothingType": "shoes",
             "imagePath": "C:\\Users\\egavi\\clothing_pics\\shoes_15.png"
+        },
+        {
+            "clothingType": "shoes",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\shoes_17.png"
+        },
+        {
+            "clothingType": "shoes",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\shoes_18.png"
+        },
+        {
+            "clothingType": "shoes",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\shoes_19.png"
+        },
+        {
+            "clothingType": "shoes",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\shoes_20.png"
         }
     ],
     "tops": [
+        {
+            "clothingType": "top",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\top_16.png"
+        },
+        {
+            "clothingType": "top",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\top_17.png"
+        },
+        {
+            "clothingType": "top",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\top_18.png"
+        },
+        {
+            "clothingType": "top",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\top_19.png"
+        }
     ]
 }

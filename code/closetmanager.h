@@ -40,12 +40,15 @@ public:
     void saveOutfitToJSON(const QString& clothingFilePath, const QString& outfitFilePath);
     void saveClothingItemsToJSON(const std::string& type, QJsonObject clothingItem);
     // Upload an item using a file path and type
+    void removeClothingItemFromJSON(const std::string& type, const std::string& imagePath);
+
     void loadClothingItemsFromJSON();
     void uploadItem(const std::string& filePath, const std::string& type);
 
-    void deleteClothingItem(const std::string& imagePath);
+    void deleteClothingItemFromList(const std::string& imagePath);
 
     void printClothingItems();
+    std::list<ClothingItem*> getClothingItemsByType(const std::string& type);
 
 
     // // Load clothing items (implement loading from file or other source)
@@ -66,7 +69,7 @@ public:
     //                 const std::string& coatName = "");
 
     // Add a clothing item to the closet
-    void addClothingItem(const std::string& type, const std::string& filePath);
+    void addClothingItemToList(const std::string& type, const std::string& filePath);
 
     // // Get an outfit by name
     // Outfit loadOutfit(const std::string& name);

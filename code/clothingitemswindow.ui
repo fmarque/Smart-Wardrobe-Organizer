@@ -20,14 +20,14 @@
       <x>70</x>
       <y>170</y>
       <width>891</width>
-      <height>51</height>
+      <height>41</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="categoriesLayout">
      <item>
       <widget class="QPushButton" name="pushButton_4">
        <property name="text">
-        <string>JACKETS</string>
+        <string>COATS</string>
        </property>
       </widget>
      </item>
@@ -333,6 +333,19 @@
     </property>
     <property name="text">
      <string>Back to Main Menu</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="uploadItem_button">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>140</y>
+      <width>141</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Upload Item</string>
     </property>
    </widget>
   </widget>
