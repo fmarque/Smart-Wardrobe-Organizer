@@ -147,6 +147,7 @@ void ClosetManager::uploadTest(const std::string& tempFilePath, const std::strin
 
     // Add the clothing item to the appropriate list and save to JSON
     addClothingItemToList(type, targetPath.string());
+    printClothingItems();
     saveClothingItemsToJSON(type, QJsonObject{
         {"imagePath", QString::fromStdString(targetPath.string())},
         {"clothingType", QString::fromStdString(type)}
