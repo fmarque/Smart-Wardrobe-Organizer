@@ -54,6 +54,27 @@
 
         // initialize JSON for saved outfits
     }
+ 
+    // Getter for tops list (if needed)
+    std::list<ClothingItem*> ClosetManager::getTops() {
+        return tops;
+    }
+
+       // Getter for bottoms list
+    std::list<ClothingItem*> ClosetManager::getBottoms() {
+        return bottoms;
+    }
+
+    // Getter for shoes list (if needed)
+    std::list<ClothingItem*> ClosetManager::getShoes() {
+        return shoes;
+    }
+
+    // Getter for coats list (if needed)
+    std::list<ClothingItem*> ClosetManager::getCoats() {
+        return coats;
+    }
+
 
     // // Upload Items to the 'clothing_pics' directory
     // void ClosetManager::uploadTest(const std::string& tempFilePath, const std::string& type) {

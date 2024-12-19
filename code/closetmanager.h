@@ -35,6 +35,11 @@ public:
     // Singleton pattern, if used
     static ClosetManager* getInstance();
 
+    std::list<ClothingItem*> getTops();
+    std::list<ClothingItem*> getBottoms();
+    std::list<ClothingItem*> getShoes();
+    std::list<ClothingItem*> getCoats();
+
     void uploadTest(const std::string& filePath, const std::string& type);
     void loadOutfitFromJSON(const QString& clothingFilePath, const QString& outfitFilePath);
     void saveOutfitToJSON(const QString& clothingFilePath, const QString& outfitFilePath);

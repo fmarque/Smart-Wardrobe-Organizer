@@ -6,6 +6,7 @@
 #include "ui_closetwindow.h"
 #include "ui_popup1.h"
 #include "croppingwindow.h"
+#include "closetmanager.h"
 
 namespace Ui {
 class ClosetWindow;
@@ -21,16 +22,32 @@ public:
 
 private slots:
     void openFileDialog(const QString &buttonType); // Slot to open the file dialog with a button identifier
-    void on_pushButton_3_clicked();
-    void on_pushButton_2_clicked();
+    void on_pushButton_3_clicked();  // Slot for opening the Clothing Items window
+    void on_pushButton_2_clicked();  // Slot for opening the Outfits window
 
+    // Arrow button slots to navigate through clothing items
+    void prevCoat();
+    void nextCoat();
+    void prevTop();
+    void nextTop();
+    void prevBottom();
+    void nextBottom();
+    void prevShoe();
+    void nextShoe();
 
 private:
     Ui::ClosetWindow *ui;
 
     QWidget *popUp;
+
+    // Indices to track the current clothing items
+    int currentIndexCoat;
+    int currentIndexTop;
+    int currentIndexBottom;
+    int currentIndexShoe;
+
+    // Helper function to update the images on the labels
+    void updateImageDisplay();
 };
-
-
 
 #endif // CLOSETWINDOW_H
