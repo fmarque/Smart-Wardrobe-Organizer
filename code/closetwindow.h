@@ -25,6 +25,7 @@ private slots:
     void on_pushButton_3_clicked();  // Slot for opening the Clothing Items window
     void on_pushButton_2_clicked();  // Slot for opening the Outfits window
 
+
     // Arrow button slots to navigate through clothing items
     void prevCoat();
     void nextCoat();
@@ -34,6 +35,10 @@ private slots:
     void nextBottom();
     void prevShoe();
     void nextShoe();
+
+
+    void on_loadButton_clicked();
+    void on_saveButton_clicked();
 
 private:
     Ui::ClosetWindow *ui;
@@ -46,8 +51,15 @@ private:
     int currentIndexBottom;
     int currentIndexShoe;
 
+    // keep track of current file path on screen
+    QString currentTopImagePath;
+    QString currentBottomImagePath;
+    QString currentCoatImagePath;
+    QString currentShoeImagePath;
+
     // Helper function to update the images on the labels
     void updateImageDisplay();
+
 };
 
 #endif // CLOSETWINDOW_H

@@ -242,16 +242,16 @@
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="loadButton">
+      <widget class="QPushButton" name="saveButton">
        <property name="text">
-        <string>Load Outfit</string>
+        <string>Save Outfit</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="saveButton">
+      <widget class="QPushButton" name="loadButton">
        <property name="text">
-        <string>Save Outfit</string>
+        <string>Load Outfit</string>
        </property>
       </widget>
      </item>
@@ -315,7 +315,9 @@
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">background: transparent;
+color: transparent;
+</string>
     </property>
     <property name="text">
      <string>Shoes</string>

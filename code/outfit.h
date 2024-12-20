@@ -7,16 +7,14 @@
 
 class Outfit {
 
-private:
+public:
     std::string name;
     std::string topName;
     std::string bottomName;
     std::string shoeName;
     std::string coatName;
-    
-public:
-    // Constructor
-    Outfit(const std::string& name = "");
+
+     Outfit(const std::string& name, const std::string& top, const std::string& bottom, const std::string& coat, const std::string& shoe);
 
     // Getters
     std::string getTop() const;
@@ -32,11 +30,11 @@ public:
 
     // Name getter and setter
     void setName(const std::string& newName);
-    std::string getName();
+    std::string getName() const;
 
-    // JSON Serialization and Deserialization
-    QJsonObject toJSON() const;
-    static Outfit fromJSON(const QJsonObject& obj);
+    // // JSON Serialization and Deserialization
+    // QJsonObject toJSON() const;
+    // static Outfit fromJSON(const QJsonObject& obj);
 };
 
 #endif // OUTFIT_H

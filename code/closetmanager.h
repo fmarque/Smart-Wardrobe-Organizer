@@ -55,6 +55,13 @@ public:
     void printClothingItems();
     std::list<ClothingItem*> getClothingItemsByType(const std::string& type);
 
+    void saveOutfit(const std::string& outfitName, const std::string& topName, 
+                               const std::string& bottomName, const std::string& shoeName, 
+                               const std::string& coatName);
+
+    Outfit loadOutfit(const std::string& name) const;
+    std::list<Outfit> getSavedOutfits() const;
+
 
     // // Load clothing items (implement loading from file or other source)
     // void loadItems();

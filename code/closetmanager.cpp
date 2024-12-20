@@ -53,6 +53,15 @@
 
 
         // initialize JSON for saved outfits
+
+
+        // add empty coat and shoe 
+         // Initialize with an empty string and appropriate type
+        ClothingItem* emptyCoat = new Coat("", "coat", "unknown");
+        coats.push_back(emptyCoat);  // Add the empty coat to the list
+
+        ClothingItem* emptyShoes = new Shoes("", "coat", "unknown");
+        shoes.push_back(emptyShoes);  // Add the empty shoes to the list
     }
  
     // Getter for tops list (if needed)
@@ -74,74 +83,6 @@
     std::list<ClothingItem*> ClosetManager::getCoats() {
         return coats;
     }
-
-
-    // // Upload Items to the 'clothing_pics' directory
-    // void ClosetManager::uploadTest(const std::string& tempFilePath, const std::string& type) {
-    //     // Get the directory for clothing_pics
-    //     std::filesystem::path currentDir = std::filesystem::current_path();
-    //     std::filesystem::path targetFolder = currentDir.parent_path().parent_path().parent_path() / "clothing_pics";
-
-    //     // Ensure the directory exists
-    //     if (!std::filesystem::exists(targetFolder)) {
-    //         if (!std::filesystem::create_directory(targetFolder)) {
-    //             std::cerr << "Failed to create directory: " << targetFolder << std::endl;
-    //             return;
-    //         }
-    //     }
-
-    //     // Generate unique file name
-    //     int& count = typeCounts[type];
-    //     std::filesystem::path targetPath;
-
-    //     do {  // this is potentiallt the issue
-    //         std::string uniqueFileName = type + "_" + std::to_string(++count) + ".png"; // Increment counter here
-    //         targetPath = targetFolder / uniqueFileName;
-    //     } while (std::filesystem::exists(targetPath)); // Ensure file doesn't already exist
-
-    //     qDebug() << "Target path for renaming:" << QString::fromStdString(targetPath.string());
-
-
-
-    //     // Attempt to move the file
-    //     try {
-    //         std::filesystem::rename(tempFilePath, targetPath);
-    //         std::cout << "File has been uploaded to: " << targetPath << std::endl;
-
-    //         addClothingItemToList(type, targetPath.string());
-    //         printClothingItems();
-
-    //     } catch (const std::filesystem::filesystem_error& e) {
-    //         //std::cerr << "Failed to move file: " << e.what() << std::endl;
-    //         return;
-    //     }  // BUG: tries this twice
-
-    //     // create an item object to store in JSON
-    //     ClothingItem* newItem = nullptr;
-    //     std::string colour = "unknown";   // Use a placeholder value or dynamically get the colour
-    //     if (type == "top") {
-    //         newItem = new Top(targetPath.string(), type, colour);  // Pass filePath, clothingType, and colour
-    //         tops.push_back(newItem);
-    //     } else if (type == "bottom") {
-    //         newItem = new Bottom(targetPath.string(), type, colour);
-    //         bottoms.push_back(newItem);
-    //     } else if (type == "shoes") {
-    //         newItem = new Shoes(targetPath.string(), type, colour);
-    //         shoes.push_back(newItem);
-    //     } else if (type == "coat") {
-    //         newItem = new Coat(targetPath.string(), type, colour);
-    //         coats.push_back(newItem);
-    //     }
-
-    //     // save item to JSON
-    //     if (newItem) {
-    //         saveClothingItemsToJSON(type, newItem->toJSON());
-    //     } else {
-    //         std::cerr << "Failed to create clothing item of type: " << type << std::endl;
-    //     }
-
-    // }
-
 
 
 void ClosetManager::uploadTest(const std::string& tempFilePath, const std::string& type) {
@@ -210,69 +151,6 @@ void ClosetManager::addClothingItemToList(const std::string& type, const std::st
     }
 }
 
-// void ClosetManager::deleteClothingItemFromList(const std::string& imagePath) {
-//     std::string clothingType;
-
-
-//     // // Lambda to check if an item matches the image path
-//     // auto deleteCondition = [&imagePath](ClothingItem* item) {
-//     //     return item->getImage() == imagePath;
-//     // };
-
-
-//     // Lambda to check if an item matches the image path and determine the type
-//     auto deleteCondition = [&imagePath, &clothingType](ClothingItem* item) {
-//         if (item->getImage() == imagePath) {
-//             clothingType = item->getClothingType();
-//             return true;
-//         }
-//         return false;
-//     };
-
-
-//     // Remove from each list
-//     tops.remove_if(deleteCondition);
-//     bottoms.remove_if(deleteCondition);
-//     shoes.remove_if(deleteCondition);
-//     coats.remove_if(deleteCondition);
-//     uploadedItems.remove_if(deleteCondition);
-
-//     // remove deleted list item from JSON
-//      if (!clothingType.empty()) {
-//         removeClothingItemFromJSON(clothingType, imagePath);
-//         std::cout << "Item with image path " << imagePath << " has been removed from JSON." << std::endl;
-//     } else {
-//         std::cerr << "Clothing item with image path " << imagePath << " not found in lists." << std::endl;
-//     }
-
-
-//     std::cout << "Item with image path " << imagePath << " has been removed from all lists." << std::endl;
-
-//     // Get the current working directory
-//     std::filesystem::path currentPath = std::filesystem::current_path();
-
-//     // Go up four levels to get to the project root, then append "clothing_pics"
-//     std::filesystem::path clothingPicsDir = currentPath.parent_path().parent_path().parent_path().parent_path() / "clothing_pics"; 
-
-//     // Combine the clothing_pics directory with the image file name
-//     std::filesystem::path filePath = clothingPicsDir / imagePath;
-
-//     // Debug: Print the full file path being used
-//     std::cout << "Full file path: " << filePath << std::endl;
-
-//     // Attempt to delete the image file
-//     if (std::filesystem::exists(filePath)) {
-//         if (std::filesystem::remove(filePath)) {
-//             std::cout << "Image file " << imagePath << " has been deleted from clothing_pics." << std::endl;
-//         } else {
-//             std::cerr << "Failed to delete image file " << imagePath << "." << std::endl;
-//         }
-//     } else {
-//         std::cerr << "Image file " << imagePath << " not found in clothing_pics." << std::endl;
-//     }
-
-//     //TODO: remove from JSON helper method
-// }
 
 void ClosetManager::deleteClothingItemFromList(const std::string& imagePath) {
     std::string clothingType;
@@ -479,29 +357,32 @@ std::list<ClothingItem*> ClosetManager::getClothingItemsByType(const std::string
     return {};
 }
 
+// Save a new outfit
+void ClosetManager::saveOutfit(const std::string& outfitName, const std::string& topName, 
+                               const std::string& bottomName, const std::string& shoeName, 
+                               const std::string& coatName) {
+    // Call the constructor with all required arguments
+    Outfit newOutfit(outfitName, topName, bottomName, coatName, shoeName);
 
-    // // Load clothing items (implement loading from file or other source)
-    // void loadItems() {
-    //     // Load items logic
-    // }
+    savedOutfits.push_back(newOutfit);  // Save the new outfit
+}
 
-    // // Get the next item of a certain type
-    // ClothingItem* getNextItem(const std::string& type) {
-    //     // Implement logic to return the next item of the specified type
-    //     return nullptr;
-    // }
+// Load an outfit by name
+Outfit ClosetManager::loadOutfit(const std::string& name) const {
+    for (const auto& outfit : savedOutfits) {
+        if (outfit.getName() == name) {
+            return outfit;  // Return the outfit if found
+        }
+    }
+}
 
-    // // Get the previous item of a certain type
-    // ClothingItem* getPrevItem(const std::string& type) {
-    //     // Implement logic to return the previous item of the specified type
-    //     return nullptr;
-    // }
+// Get a list of saved outfits
+std::list<Outfit> ClosetManager::getSavedOutfits() const {
+    return savedOutfits;
+}
 
 
-    // // Upload a clothing item to the closet
-    // void uploadItem(ClothingItem* item) {
-    //     uploadedItems.push_back(item);
-    // }
+
 
     // // Save a new outfit with just clothing names
     // void saveOutfit(std::string outfitName, std::string topName, std::string bottomName,
@@ -516,30 +397,9 @@ std::list<ClothingItem*> ClosetManager::getClothingItemsByType(const std::string
     //     savedOutfits.push_back(newOutfit);
     // }
 
-    // // Add a clothing item to the closet
-    // void addClothingItem(std::string type, std::string name) {
-    //     ClothingItem* item = new ClothingItem(name);
 
-    //     if (type == "top") {
-    //         tops.push_back(item);
-    //     } else if (type == "bottom") {
-    //         bottoms.push_back(item);
-    //     } else if (type == "shoes") {
-    //         shoes.push_back(item);
-    //     } else if (type == "coat") {
-    //         coats.push_back(item);
-    //     }
-    // }
 
-//     // Get an outfit by name
-//     Outfit loadOutfit(std::string name) {
-//         for (auto& outfit : savedOutfits) {
-//             if (outfit.getName() == name) {
-//                 return outfit;
-//             }
-//         }
-//         return Outfit(""); // Return an empty outfit if not found
-//     }
+
 
 //     // Rename an outfit
 //     void renameOutfit(Outfit& outfit, const std::string& newName) {
