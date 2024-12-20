@@ -1,6 +1,11 @@
 <RCC>
     <qresource prefix="/images">
         <file>My-Closet-11-13-2024 (1).png</file>
+        <file>backgrounds.png</file>
+        <file>next.jpg</file>
+        <file>prev.jpg</file>
+        <file>nextclicked.jpg</file>
+        <file>prevclicked.jpg</file>
         <file>data/clothingItemsJSON.json</file>
         <file>data/savedOutfitsJSON.json</file>
     </qresource>

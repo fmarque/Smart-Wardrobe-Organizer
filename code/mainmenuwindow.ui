@@ -17,19 +17,44 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>290</y>
-      <width>511</width>
-      <height>281</height>
+      <x>280</x>
+      <y>230</y>
+      <width>431</width>
+      <height>431</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QPushButton" name="pushButton">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>80</height>
+        </size>
+       </property>
        <property name="font">
         <font>
-         <pointsize>20</pointsize>
+         <family>Courier New</family>
+         <pointsize>-1</pointsize>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #C1BBDF; 
+    color: black; /* Text color */
+    border: 1px solid rgb(0, 0, 0);
+    font-family: 'Courier New';
+    font-size: 20px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #AEA7DD; /* Slightly darker blue on hover */
+}
+QPushButton:pressed {
+    background-color: #8F85D0; /* Even darker blue when pressed */
+}
+</string>
        </property>
        <property name="text">
         <string>My Closet</string>
@@ -41,10 +66,35 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_2">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>80</height>
+        </size>
+       </property>
        <property name="font">
         <font>
-         <pointsize>20</pointsize>
+         <family>Courier New</family>
+         <pointsize>-1</pointsize>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #C1BBDF; 
+    color: black; /* Text color */
+    border: 1px solid rgb(0, 0, 0);
+    font-family: 'Courier New';
+    font-size: 20px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #AEA7DD; /* Slightly darker blue on hover */
+}
+QPushButton:pressed {
+    background-color: #8F85D0; /* Even darker blue when pressed */
+}
+</string>
        </property>
        <property name="text">
         <string>My Saved Outfits</string>
@@ -56,10 +106,35 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_3">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>80</height>
+        </size>
+       </property>
        <property name="font">
         <font>
-         <pointsize>20</pointsize>
+         <family>Courier New</family>
+         <pointsize>-1</pointsize>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #C1BBDF; 
+    color: black; /* Text color */
+    border: 1px solid rgb(0, 0, 0);
+    font-family: 'Courier New';
+    font-size: 20px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #AEA7DD; /* Slightly darker blue on hover */
+}
+QPushButton:pressed {
+    background-color: #8F85D0; /* Even darker blue when pressed */
+}
+</string>
        </property>
        <property name="text">
         <string>My Clothing Items</string>
@@ -71,10 +146,35 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_7">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>80</height>
+        </size>
+       </property>
        <property name="font">
         <font>
-         <pointsize>20</pointsize>
+         <family>Courier New</family>
+         <pointsize>-1</pointsize>
+         <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #C1BBDF; 
+    color: black; /* Text color */
+    border: 1px solid rgb(0, 0, 0);
+    font-family: 'Courier New';
+    font-size: 20px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #AEA7DD; /* Slightly darker blue on hover */
+}
+QPushButton:pressed {
+    background-color: #8F85D0; /* Even darker blue when pressed */
+}
+</string>
        </property>
        <property name="text">
         <string>Change Username</string>
@@ -89,21 +189,55 @@
    <widget class="QLabel" name="closetLabel">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>170</y>
+      <x>190</x>
+      <y>140</y>
       <width>621</width>
-      <height>101</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>25</pointsize>
+      <family>Courier New</family>
+      <pointsize>-1</pointsize>
+      <bold>true</bold>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+    font-family: 'Courier New';
+    font-size: 20px;
+    font-weight: bold;
+ border : 1px solid black;
+background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
      <string>{App Name here}</string>
     </property>
    </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>-10</y>
+      <width>1021</width>
+      <height>751</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/images/backgrounds.png);
+background-repeat: no-repeat;
+background-position: center;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+   </widget>
+   <zorder>frame</zorder>
+   <zorder>verticalLayoutWidget</zorder>
+   <zorder>closetLabel</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -111,7 +245,7 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

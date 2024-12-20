@@ -18,14 +18,37 @@
     <property name="geometry">
      <rect>
       <x>570</x>
-      <y>220</y>
+      <y>185</y>
       <width>111</width>
-      <height>56</height>
+      <height>101</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QPushButton" name="saveCropButton">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #C1BBDF; 
+    color: black; /* Text color */
+    border: 1px solid rgb(0, 0, 0);
+    font-family: 'Courier New';
+    font-size: 14px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #AEA7DD; /* Slightly darker blue on hover */
+}
+QPushButton:pressed {
+    background-color: #8F85D0; /* Even darker blue when pressed */
+}
+</string>
+       </property>
        <property name="text">
         <string>Save Crop </string>
        </property>
@@ -33,6 +56,29 @@
      </item>
      <item>
       <widget class="QPushButton" name="resetLassoButton">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #C1BBDF; 
+    color: black; /* Text color */
+    border: 1px solid rgb(0, 0, 0);
+    font-family: 'Courier New';
+    font-size: 14px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #AEA7DD; /* Slightly darker blue on hover */
+}
+QPushButton:pressed {
+    background-color: #8F85D0; /* Even darker blue when pressed */
+}
+</string>
+       </property>
        <property name="text">
         <string>Reset Lasso</string>
        </property>
@@ -62,7 +108,7 @@
      <x>0</x>
      <y>0</y>
      <width>728</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuCrop_Image">

@@ -20,15 +20,15 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 209, 220);</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>180</x>
       <y>160</y>
-      <width>51</width>
+      <width>77</width>
       <height>511</height>
      </rect>
     </property>
@@ -37,18 +37,30 @@
       <widget class="QPushButton" name="ArrowCoatPrev">
        <property name="minimumSize">
         <size>
-         <width>30</width>
-         <height>30</height>
+         <width>75</width>
+         <height>40</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>40</width>
-         <height>40</height>
+         <width>75</width>
+         <height>36</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    border: none;
+    background-image: url(:/images/prev.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+QPushButton:pressed {
+    background-image: url(:/images/prevclicked.jpg);
+}
+</string>
+       </property>
        <property name="text">
-        <string>&lt;</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -56,18 +68,29 @@
       <widget class="QPushButton" name="ArrowTopPrev">
        <property name="minimumSize">
         <size>
-         <width>40</width>
+         <width>75</width>
          <height>40</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>40</width>
+         <width>75</width>
          <height>40</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    border: none;
+    background-image: url(:/images/prev.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+QPushButton:pressed {
+    background-image: url(:/images/prevclicked.jpg);
+}</string>
+       </property>
        <property name="text">
-        <string>&lt;</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -75,18 +98,29 @@
       <widget class="QPushButton" name="ArrowBottomPrev">
        <property name="minimumSize">
         <size>
-         <width>40</width>
+         <width>75</width>
          <height>40</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>40</width>
+         <width>75</width>
          <height>40</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    border: none;
+    background-image: url(:/images/prev.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+QPushButton:pressed {
+    background-image: url(:/images/prevclicked.jpg);
+}</string>
+       </property>
        <property name="text">
-        <string>&lt;</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -110,18 +144,29 @@
       <widget class="QPushButton" name="ArrowShoesPrev">
        <property name="minimumSize">
         <size>
-         <width>40</width>
+         <width>75</width>
          <height>40</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>40</width>
+         <width>75</width>
          <height>40</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    border: none;
+    background-image: url(:/images/prev.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+QPushButton:pressed {
+    background-image: url(:/images/prevclicked.jpg);
+}</string>
+       </property>
        <property name="text">
-        <string>&lt;</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -130,9 +175,9 @@
    <widget class="QWidget" name="verticalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>810</x>
+      <x>770</x>
       <y>160</y>
-      <width>51</width>
+      <width>77</width>
       <height>511</height>
      </rect>
     </property>
@@ -141,18 +186,29 @@
       <widget class="QPushButton" name="ArrowCoatNext">
        <property name="minimumSize">
         <size>
-         <width>40</width>
+         <width>75</width>
          <height>40</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>40</width>
+         <width>75</width>
          <height>40</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    border: none;
+    background-image: url(:/images/next.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+QPushButton:pressed {
+    background-image: url(:/images/nextclicked.jpg);
+}</string>
+       </property>
        <property name="text">
-        <string>&gt;</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -160,18 +216,29 @@
       <widget class="QPushButton" name="ArrowTopNext">
        <property name="minimumSize">
         <size>
-         <width>40</width>
+         <width>75</width>
          <height>40</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>40</width>
+         <width>75</width>
          <height>40</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    border: none;
+    background-image: url(:/images/next.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+QPushButton:pressed {
+    background-image: url(:/images/nextclicked.jpg);
+}</string>
+       </property>
        <property name="text">
-        <string>&gt;</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -179,18 +246,29 @@
       <widget class="QPushButton" name="ArrowBottomNext">
        <property name="minimumSize">
         <size>
-         <width>40</width>
+         <width>75</width>
          <height>40</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>40</width>
+         <width>75</width>
          <height>40</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    border: none;
+    background-image: url(:/images/next.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+QPushButton:pressed {
+    background-image: url(:/images/nextclicked.jpg);
+}</string>
+       </property>
        <property name="text">
-        <string>&gt;</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -214,18 +292,29 @@
       <widget class="QPushButton" name="ArrowShoesNext">
        <property name="minimumSize">
         <size>
-         <width>40</width>
+         <width>75</width>
          <height>40</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>40</width>
+         <width>75</width>
          <height>40</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    border: none;
+    background-image: url(:/images/next.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+QPushButton:pressed {
+    background-image: url(:/images/nextclicked.jpg);
+}</string>
+       </property>
        <property name="text">
-        <string>&gt;</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -234,15 +323,38 @@
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>670</y>
-      <width>591</width>
+      <x>260</x>
+      <y>650</y>
+      <width>521</width>
       <height>71</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="saveButton">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #C1BBDF; 
+    color: black; /* Text color */
+    border: 1px solid rgb(0, 0, 0);
+    font-family: 'Courier New';
+    font-size: 14px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #AEA7DD; /* Slightly darker blue on hover */
+}
+QPushButton:pressed {
+    background-color: #8F85D0; /* Even darker blue when pressed */
+}
+</string>
+       </property>
        <property name="text">
         <string>Save Outfit</string>
        </property>
@@ -250,6 +362,29 @@
      </item>
      <item>
       <widget class="QPushButton" name="loadButton">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #C1BBDF; 
+    color: black; /* Text color */
+    border: 1px solid rgb(0, 0, 0);
+    font-family: 'Courier New';
+    font-size: 14px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #AEA7DD; /* Slightly darker blue on hover */
+}
+QPushButton:pressed {
+    background-color: #8F85D0; /* Even darker blue when pressed */
+}
+</string>
+       </property>
        <property name="text">
         <string>Load Outfit</string>
        </property>
@@ -269,6 +404,29 @@
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QPushButton" name="uploadButton">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #C1BBDF; 
+    color: black; /* Text color */
+    border: 1px solid rgb(0, 0, 0);
+    font-family: 'Courier New';
+    font-size: 14px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #AEA7DD; /* Slightly darker blue on hover */
+}
+QPushButton:pressed {
+    background-color: #8F85D0; /* Even darker blue when pressed */
+}
+</string>
+       </property>
        <property name="text">
         <string>Upload Clothing Item</string>
        </property>
@@ -276,6 +434,29 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_2">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #C1BBDF; 
+    color: black; /* Text color */
+    border: 1px solid rgb(0, 0, 0);
+    font-family: 'Courier New';
+    font-size: 14px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #AEA7DD; /* Slightly darker blue on hover */
+}
+QPushButton:pressed {
+    background-color: #8F85D0; /* Even darker blue when pressed */
+}
+</string>
+       </property>
        <property name="text">
         <string>View Saved Outfits</string>
        </property>
@@ -283,6 +464,29 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_3">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #C1BBDF; 
+    color: black; /* Text color */
+    border: 1px solid rgb(0, 0, 0);
+    font-family: 'Courier New';
+    font-size: 14px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #AEA7DD; /* Slightly darker blue on hover */
+}
+QPushButton:pressed {
+    background-color: #8F85D0; /* Even darker blue when pressed */
+}
+</string>
+       </property>
        <property name="text">
         <string>View Clothing Items</string>
        </property>
@@ -416,43 +620,59 @@ color: transparent;
      <string>Overwear</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
+   <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>-10</y>
-      <width>370</width>
-      <height>110</height>
+      <x>-10</x>
+      <y>-20</y>
+      <width>1031</width>
+      <height>781</height>
      </rect>
     </property>
-    <property name="minimumSize">
-     <size>
-      <width>370</width>
-      <height>110</height>
-     </size>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/images/backgrounds.png);
+background-repeat: no-repeat;
+background-position: center;</string>
     </property>
-    <property name="maximumSize">
-     <size>
-      <width>370</width>
-      <height>110</height>
-     </size>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
     </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="resources.qrc">:/images/My-Closet-11-13-2024 (1).png</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignCenter</set>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
     </property>
    </widget>
+   <widget class="QLabel" name="pageLabel">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>30</y>
+      <width>261</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Courier New</family>
+      <pointsize>-1</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+    font-family: 'Courier New';
+    font-size: 30px;
+    font-weight: bold;
+ border : 1px solid black;
+background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string>~ My Closet ~</string>
+    </property>
+   </widget>
+   <zorder>frame</zorder>
    <zorder>label_bottom</zorder>
    <zorder>verticalLayoutWidget</zorder>
    <zorder>verticalLayoutWidget_2</zorder>
@@ -461,7 +681,7 @@ color: transparent;
    <zorder>label_shoes</zorder>
    <zorder>label_top</zorder>
    <zorder>label_coat</zorder>
-   <zorder>label</zorder>
+   <zorder>pageLabel</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -475,8 +695,6 @@ color: transparent;
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

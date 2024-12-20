@@ -28,3 +28,4 @@ void LoginWindow::onSaveButtonClicked()
     this->close();
     mainMenu->show();
 }
+

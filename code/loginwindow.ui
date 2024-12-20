@@ -13,41 +13,45 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="saveButton">
     <property name="geometry">
      <rect>
       <x>430</x>
-      <y>390</y>
+      <y>420</y>
       <width>161</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>11</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Set Username</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="pageLabel">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>200</y>
-      <width>491</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>40</pointsize>
+      <family>Courier New</family>
+      <pointsize>-1</pointsize>
+      <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #C1BBDF; 
+    color: black; /* Text color */
+    border: 1px solid rgb(0, 0, 0);
+    font-family: 'Courier New';
+    font-size: 14px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #AEA7DD; /* Slightly darker blue on hover */
+}
+QPushButton:pressed {
+    background-color: #8F85D0; /* Even darker blue when pressed */
+}
+</string>
+    </property>
     <property name="text">
-     <string>{Name of App here}</string>
+     <string>Set Username</string>
     </property>
    </widget>
    <widget class="QGroupBox" name="groupBox">
@@ -67,6 +71,10 @@
       <kerning>true</kerning>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background: #DEDAF3;
+ border : 1px solid black;</string>
+    </property>
     <property name="title">
      <string/>
     </property>
@@ -77,19 +85,29 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>30</y>
+       <y>20</y>
        <width>181</width>
-       <height>16</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>11</pointsize>
+       <family>Courier New</family>
+       <pointsize>-1</pointsize>
+       <bold>true</bold>
        <kerning>true</kerning>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">
+    font-family: 'Courier New';
+    font-size: 14px;
+    font-weight: bold;
+background-color: rgb(255, 255, 255);
+ border : 1px solid black;</string>
+     </property>
      <property name="text">
-      <string>Enter Username</string>
+      <string>What is your name?</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_3">
@@ -103,12 +121,76 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>15</pointsize>
+       <family>Courier New</family>
+       <pointsize>-1</pointsize>
+       <bold>true</bold>
        <kerning>true</kerning>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);
+font-family: 'Courier New';
+    font-size: 16px;
+    font-weight: bold;</string>
+     </property>
     </widget>
    </widget>
+   <widget class="QLabel" name="pageLabel">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>170</y>
+      <width>381</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Courier New</family>
+      <pointsize>-1</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+    font-family: 'Courier New';
+    font-size: 30px;
+    font-weight: bold;
+ border : 1px solid black;
+background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string>Your Virtual Closet!</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>-10</y>
+      <width>1021</width>
+      <height>751</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/images/backgrounds.png);
+background-repeat: no-repeat;
+background-position: center;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+   </widget>
+   <zorder>frame</zorder>
+   <zorder>saveButton</zorder>
+   <zorder>groupBox</zorder>
+   <zorder>pageLabel</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -116,7 +198,7 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>
