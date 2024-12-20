@@ -575,10 +575,10 @@ QPushButton:pressed {
    <widget class="QFrame" name="frame_13">
     <property name="geometry">
      <rect>
-      <x>-1</x>
-      <y>-11</y>
-      <width>1031</width>
-      <height>771</height>
+      <x>0</x>
+      <y>-20</y>
+      <width>1021</width>
+      <height>761</height>
      </rect>
     </property>
     <property name="styleSheet">

@@ -623,10 +623,10 @@ color: transparent;
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>-10</x>
+      <x>0</x>
       <y>-20</y>
-      <width>1031</width>
-      <height>781</height>
+      <width>1021</width>
+      <height>761</height>
      </rect>
     </property>
     <property name="styleSheet">

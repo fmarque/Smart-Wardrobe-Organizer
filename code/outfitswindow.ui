@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1042</width>
+    <width>1024</width>
     <height>768</height>
    </rect>
   </property>
@@ -149,9 +149,9 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>20</y>
+       <y>30</y>
        <width>941</width>
-       <height>621</height>
+       <height>611</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -167,7 +167,7 @@ border: 0.75px solid black;</string>
         <x>0</x>
         <y>0</y>
         <width>939</width>
-        <height>619</height>
+        <height>609</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
@@ -233,7 +233,7 @@ QPushButton:pressed {
      <rect>
       <x>0</x>
       <y>-20</y>
-      <width>1041</width>
+      <width>1021</width>
       <height>761</height>
      </rect>
     </property>
@@ -263,7 +263,7 @@ background-position: center;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1042</width>
+     <width>1024</width>
      <height>24</height>
     </rect>
    </property>
