@@ -284,7 +284,7 @@
      <item>
       <widget class="QPushButton" name="pushButton_3">
        <property name="text">
-        <string>View Clothing Iterms</string>
+        <string>View Clothing Items</string>
        </property>
       </widget>
      </item>
@@ -294,7 +294,7 @@
     <property name="geometry">
      <rect>
       <x>460</x>
-      <y>520</y>
+      <y>530</y>
       <width>125</width>
       <height>125</height>
      </rect>
@@ -327,7 +327,7 @@ color: transparent;
     <property name="geometry">
      <rect>
       <x>420</x>
-      <y>200</y>
+      <y>230</y>
       <width>200</width>
       <height>200</height>
      </rect>
@@ -360,7 +360,7 @@ color: transparent;
     <property name="geometry">
      <rect>
       <x>420</x>
-      <y>340</y>
+      <y>350</y>
       <width>200</width>
       <height>200</height>
      </rect>
@@ -390,7 +390,7 @@ color: transparent;
     <property name="geometry">
      <rect>
       <x>310</x>
-      <y>180</y>
+      <y>170</y>
       <width>200</width>
       <height>200</height>
      </rect>

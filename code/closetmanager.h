@@ -61,6 +61,7 @@ public:
 
     Outfit loadOutfit(const std::string& name) const;
     std::list<Outfit> getSavedOutfits() const;
+    void removeOutfit(const std::string& outfitName);
 
 
     // // Load clothing items (implement loading from file or other source)

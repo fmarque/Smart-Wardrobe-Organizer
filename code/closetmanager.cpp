@@ -381,6 +381,20 @@ std::list<Outfit> ClosetManager::getSavedOutfits() const {
     return savedOutfits;
 }
 
+void ClosetManager::removeOutfit(const std::string& outfitName) {
+    // Lambda to find and delete the outfit based on one of its clothing items
+    auto deleteCondition = [&outfitName](const Outfit& outfit) {
+        if (outfit.getName() == outfitName) {
+            return true;
+        }
+        return false;
+    };
+
+    // Remove from outfits list
+    savedOutfits.remove_if(deleteCondition);
+}
+
+
 
 
 

@@ -331,11 +331,11 @@ void ClosetWindow::on_loadButton_clicked()
     if (ok && !selectedOutfit.isEmpty()) {
         Outfit outfit = ClosetManager::getInstance()->loadOutfit(selectedOutfit.toStdString());
 
-        // // Initialize file paths to empty
-        // currentTopImagePath.clear();
-        // currentBottomImagePath.clear();
-        // currentCoatImagePath.clear();
-        // currentShoeImagePath.clear();
+        // Initialize file paths to empty
+        currentTopImagePath.clear();
+        currentBottomImagePath.clear();
+        currentCoatImagePath.clear();
+        currentShoeImagePath.clear();
 
         // Check for top
         auto tops = ClosetManager::getInstance()->getTops();
