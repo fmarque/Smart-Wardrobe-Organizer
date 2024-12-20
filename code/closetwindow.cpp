@@ -26,6 +26,7 @@ ClosetWindow::ClosetWindow(QWidget *parent)
         popUp->show();
     });
 
+
     // Connect each button in the pop-up to openFileDialog with a different identifier
     connect(popUpUi.coatButton, &QPushButton::clicked, this, [this]() { openFileDialog("coat"); });
     connect(popUpUi.topButton, &QPushButton::clicked, this, [this]() { openFileDialog("top"); });
