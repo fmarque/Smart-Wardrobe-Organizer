@@ -41,20 +41,19 @@ public:
     std::list<ClothingItem*> getCoats();
 
     void uploadTest(const std::string& filePath, const std::string& type);
-    void loadOutfitFromJSON(const QString& clothingFilePath, const QString& outfitFilePath);
-    void saveOutfitToJSON(const QString& clothingFilePath, const QString& outfitFilePath);
+
+    void loadOutfitsFromJSON();
+    void saveOutfitToJSON(const Outfit&);  // if buggy, try removing the &
+
     void saveClothingItemsToJSON(const std::string& type, QJsonObject clothingItem);
-    // Upload an item using a file path and type
     void removeClothingItemFromJSON(const std::string& type, const std::string& imagePath);
-
     void loadClothingItemsFromJSON();
+
+
     void uploadItem(const std::string& filePath, const std::string& type);
-
     void deleteClothingItemFromList(const std::string& imagePath);
-
     void printClothingItems();
     std::list<ClothingItem*> getClothingItemsByType(const std::string& type);
-
     void saveOutfit(const std::string& outfitName, const std::string& topName, 
                                const std::string& bottomName, const std::string& shoeName, 
                                const std::string& coatName);

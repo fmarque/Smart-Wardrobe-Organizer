@@ -49,6 +49,30 @@ void JSONManager::initializeClothingItemsJSON(const QString& filePath) {
     qDebug() << "Initialized JSON file with default structure:" << filePath;
 }
 
+void JSONManager::initializeOutfitsJSON(const QString& filePath) {
+    // Check if the file already exists
+    QFile file(filePath);
+    if (file.exists()) {
+        qDebug() << "Outfits JSON file already exists at:" << filePath;
+        return; // No need to initialize
+    }
+
+    // Create the default JSON structure with an empty "outfits" array
+    QJsonObject jsonObject;
+    jsonObject["outfits"] = QJsonArray(); // Empty array
+
+    // Save the default JSON object to the file
+    if (file.open(QIODevice::WriteOnly)) {
+        QJsonDocument jsonDoc(jsonObject);
+        file.write(jsonDoc.toJson());
+        file.close();
+        qDebug() << "Outfits JSON file initialized at:" << filePath;
+    } else {
+        qDebug() << "Failed to initialize outfits JSON file at:" << filePath;
+    }
+}
+
+
 // Load JSON data from a file
 QJsonObject JSONManager::load(const QString& filePath) {
     QFile file(filePath);

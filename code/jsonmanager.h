@@ -12,6 +12,7 @@ class JSONManager {
 public:
     // Load JSON data from a file and return it as a QJsonObject
     void initializeClothingItemsJSON(const QString& filePath);
+    void initializeOutfitsJSON(const QString& filePath);
     QJsonObject load(const QString& filePath);
 
     // Save JSON data to a file

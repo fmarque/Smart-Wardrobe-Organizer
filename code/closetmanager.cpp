@@ -53,6 +53,8 @@
 
 
         // initialize JSON for saved outfits
+        jsonManager.initializeOutfitsJSON(outfitFilePath);
+        loadOutfitsFromJSON();
 
 
         // add empty coat and shoe 
@@ -85,6 +87,7 @@
     }
 
 
+// maybe change this name
 void ClosetManager::uploadTest(const std::string& tempFilePath, const std::string& type) {
     // Get the target directory for clothing_pics
     std::filesystem::path targetFolder = std::filesystem::current_path().parent_path().parent_path().parent_path() / "clothing_pics";
@@ -195,8 +198,6 @@ void ClosetManager::deleteClothingItemFromList(const std::string& imagePath) {
 }
 
 
-
-
 void ClosetManager::saveClothingItemsToJSON(const std::string& type, QJsonObject clothingItem) {
     JSONManager jsonManager;
     QString arrayKey;
@@ -274,7 +275,7 @@ void ClosetManager::loadClothingItemsFromJSON() {
     for (const auto& item : topsArray) {
         QJsonObject obj = item.toObject();
         tops.push_back(new Top(
-            obj["imagePath"].toString().toStdString(),  // Use "imagePath"
+            obj["imagePath"].toString().toStdString(),  
             "top",
             obj["colour"].toString("unknown").toStdString()  // Default to "unknown" if "colour" is missing
         ));
@@ -285,7 +286,7 @@ void ClosetManager::loadClothingItemsFromJSON() {
     for (const auto& item : bottomsArray) {
         QJsonObject obj = item.toObject();
         bottoms.push_back(new Bottom(
-            obj["imagePath"].toString().toStdString(),  // Use "imagePath"
+            obj["imagePath"].toString().toStdString(), 
             "bottom",
             obj["colour"].toString("unknown").toStdString()
         ));
@@ -315,6 +316,72 @@ void ClosetManager::loadClothingItemsFromJSON() {
 
     qDebug() << "Clothing items loaded successfully from JSON.";
 }
+
+// Save an outfit to JSON
+void ClosetManager::saveOutfitToJSON(const Outfit& outfit) {
+    // get object components of outfits
+    // make a general array of outfits
+    // populate the array with outfit items and paths
+
+    // Load the existing data from the JSON file
+    JSONManager jsonManager;
+    QJsonObject outfitsData = jsonManager.load(outfitFilePath);
+
+    // Get or create the "outfits" array
+    QJsonArray outfitsArray = outfitsData["outfits"].toArray();
+
+    // Create a JSON object for the new outfit
+    QJsonObject outfitJson;
+    outfitJson["name"] = QString::fromStdString(outfit.getName());
+    outfitJson["coat"] = QString::fromStdString(outfit.getCoat());
+    outfitJson["top"] = QString::fromStdString(outfit.getTop());
+    outfitJson["bottom"] = QString::fromStdString(outfit.getBottom());
+    outfitJson["shoes"] = QString::fromStdString(outfit.getShoe());
+
+    // Add the outfit JSON object to the array
+    outfitsArray.append(outfitJson);
+
+    // Update the JSON object with the new array
+    outfitsData["outfits"] = outfitsArray;
+
+    // Save the updated JSON data back to the file
+    jsonManager.save(outfitFilePath, outfitsData);
+
+    qDebug() << "Outfit saved to JSON successfully:" << QJsonDocument(outfitJson).toJson();
+}
+
+// Load an outfit from JSON
+void ClosetManager::loadOutfitsFromJSON() {
+    // Initialize the JSON Manager
+    JSONManager jsonManager;
+    QJsonObject outfitsData = jsonManager.load(outfitFilePath);
+
+    // Clear the savedOutfits list to avoid duplicates
+    savedOutfits.clear();
+
+    // Get the "outfits" array from the JSON object
+    QJsonArray outfitsArray = outfitsData["outfits"].toArray();
+
+    // Iterate through each object in the "outfits" array
+    for (const QJsonValue& value : outfitsArray) {
+        QJsonObject outfitJson = value.toObject();
+
+        // Extract outfit properties
+        std::string name = outfitJson["name"].toString().toStdString();
+        std::string coat = outfitJson["coat"].toString().toStdString();
+        std::string top = outfitJson["top"].toString().toStdString();
+        std::string bottom = outfitJson["bottom"].toString().toStdString();
+        std::string shoes = outfitJson["shoes"].toString().toStdString();
+
+        // Create an Outfit object and add it to the savedOutfits list
+        Outfit outfit(name, top, bottom, coat, shoes);
+        savedOutfits.push_back(outfit);
+    }
+
+    qDebug() << "Outfits loaded successfully from JSON. Total outfits:" << savedOutfits.size();
+}
+
+
 
 
 void ClosetManager::printClothingItems() {
@@ -357,7 +424,7 @@ std::list<ClothingItem*> ClosetManager::getClothingItemsByType(const std::string
     return {};
 }
 
-// Save a new outfit
+// Save a new outfit to list
 void ClosetManager::saveOutfit(const std::string& outfitName, const std::string& topName, 
                                const std::string& bottomName, const std::string& shoeName, 
                                const std::string& coatName) {
@@ -365,9 +432,10 @@ void ClosetManager::saveOutfit(const std::string& outfitName, const std::string&
     Outfit newOutfit(outfitName, topName, bottomName, coatName, shoeName);
 
     savedOutfits.push_back(newOutfit);  // Save the new outfit
+    saveOutfitToJSON(newOutfit);
 }
 
-// Load an outfit by name
+// Load an outfit by name from list
 Outfit ClosetManager::loadOutfit(const std::string& name) const {
     for (const auto& outfit : savedOutfits) {
         if (outfit.getName() == name) {
