@@ -381,6 +381,34 @@ void ClosetManager::loadOutfitsFromJSON() {
     qDebug() << "Outfits loaded successfully from JSON. Total outfits:" << savedOutfits.size();
 }
 
+void ClosetManager::removeOutfitFromJSON(const std::string& outfitName) {
+    // Load the existing data from the JSON file
+    JSONManager jsonManager;
+    QJsonObject outfitsData = jsonManager.load(outfitFilePath);
+
+    // Get the "outfits" array from the JSON file
+    QJsonArray outfitsArray = outfitsData["outfits"].toArray();
+
+    // Iterate through the array to find the outfit with the matching name
+    for (int i = 0; i < outfitsArray.size(); ++i) {
+        QJsonObject outfitJson = outfitsArray[i].toObject();
+        if (outfitJson["name"].toString().toStdString() == outfitName) {
+            // Remove the matching outfit from the array
+            outfitsArray.removeAt(i);
+            qDebug() << "Outfit removed from JSON: " << QString::fromStdString(outfitName);
+            break; // Exit the loop once the outfit is found and removed
+        }
+    }
+
+    // Update the JSON object with the modified array
+    outfitsData["outfits"] = outfitsArray;
+
+    // Save the updated JSON back to the file
+    jsonManager.save(outfitFilePath, outfitsData);
+
+    // Debugging output
+    qDebug() << "Updated Outfits JSON Data: " << QJsonDocument(outfitsData).toJson();
+}
 
 
 
@@ -460,6 +488,7 @@ void ClosetManager::removeOutfit(const std::string& outfitName) {
 
     // Remove from outfits list
     savedOutfits.remove_if(deleteCondition);
+    removeOutfitFromJSON(outfitName);
 }
 
 

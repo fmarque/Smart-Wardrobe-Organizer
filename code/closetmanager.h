@@ -43,7 +43,8 @@ public:
     void uploadTest(const std::string& filePath, const std::string& type);
 
     void loadOutfitsFromJSON();
-    void saveOutfitToJSON(const Outfit&);  // if buggy, try removing the &
+    void saveOutfitToJSON(const Outfit& outfit);  // if buggy, try removing the &
+    void removeOutfitFromJSON(const std::string& outfitName);
 
     void saveClothingItemsToJSON(const std::string& type, QJsonObject clothingItem);
     void removeClothingItemFromJSON(const std::string& type, const std::string& imagePath);

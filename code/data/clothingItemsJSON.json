@@ -21,6 +21,10 @@
         {
             "clothingType": "top",
             "imagePath": "C:\\Users\\egavi\\clothing_pics\\top_16.png"
+        },
+        {
+            "clothingType": "top",
+            "imagePath": "C:\\Users\\egavi\\clothing_pics\\top_19.png"
         }
     ]
 }
