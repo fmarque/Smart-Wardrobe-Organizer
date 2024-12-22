@@ -396,7 +396,7 @@ QPushButton:pressed {
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">
+     <string notr="true">color: rgb(0, 0, 0);
     font-family: 'Courier New';
     font-size: 30px;
     font-weight: bold;
@@ -609,7 +609,7 @@ background-position: center;</string>
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
