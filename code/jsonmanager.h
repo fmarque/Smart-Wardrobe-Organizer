@@ -21,7 +21,6 @@ public:
     // Convert a list of ClothingItem pointers to a QJsonArray
     QJsonArray toJSONArray(const std::list<ClothingItem*>& items);
 
-    //TODO: method for deleteJSON items in given QJsonArray or JSON file
 };
 
 #endif // JSONMANAGER_H

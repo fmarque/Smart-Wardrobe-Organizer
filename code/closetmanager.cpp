@@ -18,19 +18,20 @@
 #include <QJsonObject>
 
 
-
+    // Lists to hold each clothing item type
     std::list<ClothingItem*> tops;
     std::list<ClothingItem*> bottoms;
     std::list<ClothingItem*> shoes;
     std::list<ClothingItem*> coats;
     std::list<ClothingItem*> uploadedItems;
     std::list<Outfit> savedOutfits;
+
     QString clothingFilePath = QCoreApplication::applicationDirPath() + "../data/clothingItemsJSON.json";
     QString outfitFilePath = QCoreApplication::applicationDirPath() + "../data/savedOutfitsJSON.json";
 
 
     ClosetManager* ClosetManager::getInstance() {
-    static ClosetManager instance;  // Singleton pattern
+    static ClosetManager instance;  // Singleton pattern instance
     return &instance;
     }
 
@@ -51,14 +52,11 @@
         printClothingItems();
         qDebug() << "ClosetManager initialized and lists re-populated.";
 
-
         // initialize JSON for saved outfits
         jsonManager.initializeOutfitsJSON(outfitFilePath);
         loadOutfitsFromJSON();
 
-
-        // add empty coat and shoe 
-         // Initialize with an empty string and appropriate type
+         // Initialize empty coat and shoe to make them optional with an empty string and appropriate type
         ClothingItem* emptyCoat = new Coat("", "coat", "unknown");
         coats.push_back(emptyCoat);  // Add the empty coat to the list
 
@@ -66,7 +64,7 @@
         shoes.push_back(emptyShoes);  // Add the empty shoes to the list
     }
  
-    // Getter for tops list (if needed)
+    // Getter for tops list 
     std::list<ClothingItem*> ClosetManager::getTops() {
         return tops;
     }
@@ -76,18 +74,16 @@
         return bottoms;
     }
 
-    // Getter for shoes list (if needed)
+    // Getter for shoes list 
     std::list<ClothingItem*> ClosetManager::getShoes() {
         return shoes;
     }
 
-    // Getter for coats list (if needed)
+    // Getter for coats list 
     std::list<ClothingItem*> ClosetManager::getCoats() {
         return coats;
     }
 
-
-// maybe change this name
 void ClosetManager::uploadTest(const std::string& tempFilePath, const std::string& type) {
     // Get the target directory for clothing_pics
     std::filesystem::path targetFolder = std::filesystem::current_path().parent_path().parent_path().parent_path() / "clothing_pics";
@@ -127,9 +123,9 @@ void ClosetManager::uploadTest(const std::string& tempFilePath, const std::strin
 void ClosetManager::addClothingItemToList(const std::string& type, const std::string& filePath) {
     ClothingItem* newItem = nullptr;
     std::string clothingType = type;  // Use the passed 'type' for clothingType
-    std::string colour = "unknown";   // Use a placeholder value or dynamically get the colour
+    std::string colour = "unknown";   // Use a placeholder value 
 
-    // Create the appropriate clothing item based on 'type'
+    // Create the appropriate clothing item based on type
     if (type == "top") {
         newItem = new Top(filePath, clothingType, colour);  // Pass filePath, clothingType, and colour
         tops.push_back(newItem);
@@ -154,7 +150,7 @@ void ClosetManager::addClothingItemToList(const std::string& type, const std::st
     }
 }
 
-
+// Method to delete clothing clothing item
 void ClosetManager::deleteClothingItemFromList(const std::string& imagePath) {
     std::string clothingType;
 
@@ -197,7 +193,7 @@ void ClosetManager::deleteClothingItemFromList(const std::string& imagePath) {
     }
 }
 
-
+// Method to save clothing items to JSON file
 void ClosetManager::saveClothingItemsToJSON(const std::string& type, QJsonObject clothingItem) {
     JSONManager jsonManager;
     QString arrayKey;
@@ -230,6 +226,7 @@ void ClosetManager::saveClothingItemsToJSON(const std::string& type, QJsonObject
     }
 }
 
+// Removes clothing item from JSON file
 void ClosetManager::removeClothingItemFromJSON(const std::string& type, const std::string& imagePath) {
     JSONManager jsonManager;
 
@@ -319,9 +316,9 @@ void ClosetManager::loadClothingItemsFromJSON() {
 
 // Save an outfit to JSON
 void ClosetManager::saveOutfitToJSON(const Outfit& outfit) {
-    // get object components of outfits
-    // make a general array of outfits
-    // populate the array with outfit items and paths
+    // Get object components of outfits
+    // Make a general array of outfits
+    // Populate the array with outfit items and paths
 
     // Load the existing data from the JSON file
     JSONManager jsonManager;
@@ -381,6 +378,7 @@ void ClosetManager::loadOutfitsFromJSON() {
     qDebug() << "Outfits loaded successfully from JSON. Total outfits:" << savedOutfits.size();
 }
 
+// Method to remove outfit from the JSON file
 void ClosetManager::removeOutfitFromJSON(const std::string& outfitName) {
     // Load the existing data from the JSON file
     JSONManager jsonManager;
@@ -409,7 +407,6 @@ void ClosetManager::removeOutfitFromJSON(const std::string& outfitName) {
     // Debugging output
     qDebug() << "Updated Outfits JSON Data: " << QJsonDocument(outfitsData).toJson();
 }
-
 
 
 void ClosetManager::printClothingItems() {
@@ -444,6 +441,7 @@ void ClosetManager::printClothingItems() {
     }
 }
 
+// Retrieves clothing items by type
 std::list<ClothingItem*> ClosetManager::getClothingItemsByType(const std::string& type) {
     if (type == "top") return tops;
     if (type == "bottom") return bottoms;
@@ -477,6 +475,7 @@ std::list<Outfit> ClosetManager::getSavedOutfits() const {
     return savedOutfits;
 }
 
+// Method to delete an outfit
 void ClosetManager::removeOutfit(const std::string& outfitName) {
     // Lambda to find and delete the outfit based on one of its clothing items
     auto deleteCondition = [&outfitName](const Outfit& outfit) {
@@ -490,48 +489,3 @@ void ClosetManager::removeOutfit(const std::string& outfitName) {
     savedOutfits.remove_if(deleteCondition);
     removeOutfitFromJSON(outfitName);
 }
-
-
-
-
-
-    // // Save a new outfit with just clothing names
-    // void saveOutfit(std::string outfitName, std::string topName, std::string bottomName,
-    //                 std::string shoeName = "", std::string coatName = "") {
-    //     Outfit newOutfit(outfitName);
-
-    //     newOutfit.setTop(topName);
-    //     newOutfit.setBottom(bottomName);
-    //     if (!shoeName.empty()) newOutfit.setShoe(shoeName);
-    //     if (!coatName.empty()) newOutfit.setCoat(coatName);
-
-    //     savedOutfits.push_back(newOutfit);
-    // }
-
-
-
-
-
-//     // Rename an outfit
-//     void renameOutfit(Outfit& outfit, const std::string& newName) {
-//         outfit.setName(newName);
-//     }
-
-//     // Retrieve a clothing item by name from the closet lists
-//     ClothingItem* getClothingItemByName(const std::string& name) {
-//         // Check if the name matches an item in each list (tops, bottoms, shoes, coats)
-//         for (auto& top : tops) {
-//             if (top.getName() == name) return &top;
-//         }
-//         for (auto& bottom : bottoms) {
-//             if (bottom.getName() == name) return &bottom;
-//         }
-//         for (auto& shoe : shoes) {
-//             if (shoe.getName() == name) return &shoe;
-//         }
-//         for (auto& coat : coats) {
-//             if (coat.getName() == name) return &coat;
-//         }
-//         return nullptr; // If not found
-//     }
-
