@@ -1,30 +1,10 @@
 {
     "bottoms": [
-        {
-            "clothingType": "bottom",
-            "imagePath": "C:\\Users\\egavi\\clothing_pics\\bottom_37.png"
-        }
     ],
     "coats": [
-        {
-            "clothingType": "coat",
-            "imagePath": "C:\\Users\\egavi\\clothing_pics\\coat_20.png"
-        }
     ],
     "shoes": [
-        {
-            "clothingType": "shoes",
-            "imagePath": "C:\\Users\\egavi\\clothing_pics\\shoes_17.png"
-        }
     ],
     "tops": [
-        {
-            "clothingType": "top",
-            "imagePath": "C:\\Users\\egavi\\clothing_pics\\top_16.png"
-        },
-        {
-            "clothingType": "top",
-            "imagePath": "C:\\Users\\egavi\\clothing_pics\\top_19.png"
-        }
     ]
 }
