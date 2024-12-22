@@ -63,38 +63,9 @@ public:
     std::list<Outfit> getSavedOutfits() const;
     void removeOutfit(const std::string& outfitName);
 
-
-    // // Load clothing items (implement loading from file or other source)
-    // void loadItems();
-
-    // // Get the next item of a certain type
-    // ClothingItem* getNextItem(const std::string& type);
-
-    // // Get the previous item of a certain type
-    // ClothingItem* getPrevItem(const std::string& type);
-
-    // // Upload a clothing item to the closet
-    // void uploadItem(ClothingItem* item);
-
-    // // Save a new outfit with just clothing names
-    // void saveOutfit(const std::string& outfitName, const std::string& topName,
-    //                 const std::string& bottomName, const std::string& shoeName = "",
-    //                 const std::string& coatName = "");
-
     // Add a clothing item to the closet
     void addClothingItemToList(const std::string& type, const std::string& filePath);
 
-    // // Get an outfit by name
-    // Outfit loadOutfit(const std::string& name);
-
-    // // Rename an outfit
-    // void renameOutfit(Outfit& outfit, const std::string& newName);
-
-    // // Retrieve a clothing item by name from the closet lists
-    // ClothingItem* getClothingItemByName(const std::string& name);
-
-    // TODO: method to clear all files from disk memory
-    // TODO: method to clear all items in all lists
 };
 
 #endif // CLOSETMANAGER_H

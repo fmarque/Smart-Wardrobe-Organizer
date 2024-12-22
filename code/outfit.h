@@ -32,9 +32,6 @@ public:
     void setName(const std::string& newName);
     std::string getName() const;
 
-    // // JSON Serialization and Deserialization
-    // QJsonObject toJSON() const;
-    // static Outfit fromJSON(const QJsonObject& obj);
 };
 
 #endif // OUTFIT_H
