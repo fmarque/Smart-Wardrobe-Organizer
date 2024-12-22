@@ -12,6 +12,5 @@ std::string Shoes::getColour() const {
 
 // Override display method
 void Shoes::display() const {
-    // In future, will check with JSON
     std::cout << "Shoes should match: " << getClothingType() << ", Colour: " << colour << "\n";
 }

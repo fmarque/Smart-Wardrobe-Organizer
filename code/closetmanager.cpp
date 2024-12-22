@@ -18,72 +18,73 @@
 #include <QJsonObject>
 
 
-    // Lists to hold each clothing item type
-    std::list<ClothingItem*> tops;
-    std::list<ClothingItem*> bottoms;
-    std::list<ClothingItem*> shoes;
-    std::list<ClothingItem*> coats;
-    std::list<ClothingItem*> uploadedItems;
-    std::list<Outfit> savedOutfits;
+// Lists to hold each clothing item type
+std::list<ClothingItem*> tops;
+std::list<ClothingItem*> bottoms;
+std::list<ClothingItem*> shoes;
+std::list<ClothingItem*> coats;
+std::list<ClothingItem*> uploadedItems;
+std::list<Outfit> savedOutfits;
 
-    QString clothingFilePath = QCoreApplication::applicationDirPath() + "../data/clothingItemsJSON.json";
-    QString outfitFilePath = QCoreApplication::applicationDirPath() + "../data/savedOutfitsJSON.json";
+QString clothingFilePath = QCoreApplication::applicationDirPath() + "../data/clothingItemsJSON.json";
+QString outfitFilePath = QCoreApplication::applicationDirPath() + "../data/savedOutfitsJSON.json";
 
 
-    ClosetManager* ClosetManager::getInstance() {
+ClosetManager* ClosetManager::getInstance() {
     static ClosetManager instance;  // Singleton pattern instance
     return &instance;
-    }
+}
 
-    ClosetManager::ClosetManager() {
-        // Initialize the count for each clothing item - for naming purposes
-        typeCounts = {
-            {"top", 0},
-            {"bottom", 0},
-            {"shoe", 0},
-            {"coat", 0}
-        };
+ClosetManager::ClosetManager() {
+    // Initialize the count for each clothing item - for naming purposes
+    typeCounts = {
+        {"top", 0},
+        {"bottom", 0},
+        {"shoe", 0},
+        {"coat", 0}
+    };
 
-        // initialize JSON for clothing items
-        JSONManager jsonManager;
-        jsonManager.initializeClothingItemsJSON(clothingFilePath);
-        loadClothingItemsFromJSON();
-        qDebug() << "ITEMS LIST WITH LOAD CLOTHING UPON INIT";
-        printClothingItems();
-        qDebug() << "ClosetManager initialized and lists re-populated.";
+    // initialize JSON for clothing items
+    JSONManager jsonManager;
+    jsonManager.initializeClothingItemsJSON(clothingFilePath);
+    loadClothingItemsFromJSON();
+    qDebug() << "ITEMS LIST WITH LOAD CLOTHING UPON INIT";
+    printClothingItems();
+    qDebug() << "ClosetManager initialized and lists re-populated.";
 
-        // initialize JSON for saved outfits
-        jsonManager.initializeOutfitsJSON(outfitFilePath);
-        loadOutfitsFromJSON();
+    // initialize JSON for saved outfits
+    jsonManager.initializeOutfitsJSON(outfitFilePath);
+    loadOutfitsFromJSON();
 
-         // Initialize empty coat and shoe to make them optional with an empty string and appropriate type
-        ClothingItem* emptyCoat = new Coat("", "coat", "unknown");
-        coats.push_back(emptyCoat);  // Add the empty coat to the list
+    // Initialize empty coat and shoe to make them optional with an empty string and appropriate type
+    ClothingItem* emptyCoat = new Coat("", "coat", "unknown");
+    coats.push_back(emptyCoat);  // Add the empty coat to the list
 
-        ClothingItem* emptyShoes = new Shoes("", "coat", "unknown");
-        shoes.push_back(emptyShoes);  // Add the empty shoes to the list
-    }
+    ClothingItem* emptyShoes = new Shoes("", "coat", "unknown");
+    shoes.push_back(emptyShoes);  // Add the empty shoes to the list
+}
  
-    // Getter for tops list 
-    std::list<ClothingItem*> ClosetManager::getTops() {
-        return tops;
-    }
+// Getter for tops list 
+std::list<ClothingItem*> ClosetManager::getTops() {
+    return tops;
+}
 
-       // Getter for bottoms list
-    std::list<ClothingItem*> ClosetManager::getBottoms() {
-        return bottoms;
-    }
+// Getter for bottoms list
+std::list<ClothingItem*> ClosetManager::getBottoms() {
+    return bottoms;
+}
 
-    // Getter for shoes list 
-    std::list<ClothingItem*> ClosetManager::getShoes() {
-        return shoes;
-    }
+// Getter for shoes list 
+std::list<ClothingItem*> ClosetManager::getShoes() {
+    return shoes;
+}
 
-    // Getter for coats list 
-    std::list<ClothingItem*> ClosetManager::getCoats() {
-        return coats;
-    }
+// Getter for coats list 
+std::list<ClothingItem*> ClosetManager::getCoats() {
+    return coats;
+}
 
+// Method to upload clothing item photos to the closet
 void ClosetManager::uploadTest(const std::string& tempFilePath, const std::string& type) {
     // Get the target directory for clothing_pics
     std::filesystem::path targetFolder = std::filesystem::current_path().parent_path().parent_path().parent_path() / "clothing_pics";
@@ -116,8 +117,6 @@ void ClosetManager::uploadTest(const std::string& tempFilePath, const std::strin
 
     qDebug() << "Item uploaded and saved successfully!";
 }
-
-
 
 // Method to add clothingItem objects to list during runtime, must be called upon start and when updating.
 void ClosetManager::addClothingItemToList(const std::string& type, const std::string& filePath) {
