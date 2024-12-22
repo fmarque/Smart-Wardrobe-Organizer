@@ -36,7 +36,6 @@ private slots:
     void prevShoe();
     void nextShoe();
 
-
     void on_loadButton_clicked();
     void on_saveButton_clicked();
 

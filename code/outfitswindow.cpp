@@ -3,7 +3,7 @@
 #include "clothingitemswindow.h"
 #include "closetwindow.h"
 #include "mainmenuwindow.h"
-#include "global.h"  // To access ClosetManager and Outfit data
+#include "global.h"
 
 OutfitsWindow::OutfitsWindow(QWidget *parent)
     : QMainWindow(parent)

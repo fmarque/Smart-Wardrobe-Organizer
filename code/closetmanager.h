@@ -16,7 +16,6 @@
 #include "shoes.h"
 #include <memory>
 
-
 class ClosetManager {
 private:
     std::list<ClothingItem*> tops;
@@ -26,13 +25,12 @@ private:
     std::list<ClothingItem*> uploadedItems;
     std::list<Outfit> savedOutfits;
 
-    // Private constructor (if using Singleton pattern)
+    // private constructor for singleton
     ClosetManager();
     std::unordered_map<std::string, int> typeCounts;
 
 
 public:
-    // Singleton pattern, if used
     static ClosetManager* getInstance();
 
     std::list<ClothingItem*> getTops();
@@ -50,21 +48,17 @@ public:
     void removeClothingItemFromJSON(const std::string& type, const std::string& imagePath);
     void loadClothingItemsFromJSON();
 
-
-    void uploadItem(const std::string& filePath, const std::string& type);
+    void addClothingItemToList(const std::string& type, const std::string& filePath);
     void deleteClothingItemFromList(const std::string& imagePath);
     void printClothingItems();
     std::list<ClothingItem*> getClothingItemsByType(const std::string& type);
+
     void saveOutfit(const std::string& outfitName, const std::string& topName, 
                                const std::string& bottomName, const std::string& shoeName, 
                                const std::string& coatName);
-
     Outfit loadOutfit(const std::string& name) const;
     std::list<Outfit> getSavedOutfits() const;
     void removeOutfit(const std::string& outfitName);
-
-    // Add a clothing item to the closet
-    void addClothingItemToList(const std::string& type, const std::string& filePath);
 
 };
 
